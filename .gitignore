@@ -1,0 +1,8 @@
+# Ambiente e banco local SQLite de teste
+.env
+database/*.sqlite
+database/*.sqlite-journal
+storage/logs/*.log
+vendor/
+.DS_Store
+Thumbs.db
