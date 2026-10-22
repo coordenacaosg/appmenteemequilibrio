@@ -1,6 +1,11 @@
+DirectoryIndex index.php index.html
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
+
+    # Redirecionar default.php da Hostinger para index.php
+    RewriteRule ^default\.php$ index.php [L]
 
     # Bloquear acesso direto a pastas sensíveis na Hostinger
     RewriteRule ^config/ - [F,L]
