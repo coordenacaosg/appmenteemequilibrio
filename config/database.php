@@ -56,8 +56,16 @@ function getDbConnection(): PDO {
         }
     }
 
-    $sqlitePath = __DIR__ . '/../database/app.sqlite';
-    $isNew = !file_exists($sqlitePath);
+    $dbDir = __DIR__ . '/../database';
+    if (!is_dir($dbDir)) {
+        @mkdir($dbDir, 0775, true);
+    }
+    @chmod($dbDir, 0775);
+
+    $sqlitePath = is_writable($dbDir)
+        ? $dbDir . '/app.sqlite'
+        : rtrim(sys_get_temp_dir(), '/\\') . '/appmenteemequilibrio.sqlite';
+
     $pdo = new PDO('sqlite:' . $sqlitePath, null, null, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
