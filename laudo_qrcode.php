@@ -25,12 +25,12 @@ $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" . r
     <div class="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow border border-slate-200 text-center">
         <div class="no-print mb-6 flex justify-between">
             <a href="index.php?tab=clientes&patient_id=<?= $patient['id'] ?>" class="text-xs text-slate-600 font-semibold">← Voltar</a>
-            <button onclick="window.print()" class="bg-teal-700 text-white px-4 py-1.5 rounded-lg text-xs font-semibold">🖨️ Imprimir QR Code do Laudo</button>
+            <button onclick="window.print()" class="bg-[#1d4ed8] text-white px-4 py-1.5 rounded-lg text-xs font-semibold">🖨️ Imprimir QR Code do Laudo</button>
         </div>
-        <p class="text-xs uppercase tracking-widest text-teal-700 font-bold">Mente em Equilíbrio — Avaliação Neuropsicológica</p>
+        <p class="text-xs uppercase tracking-widest text-[#1d4ed8] font-bold">Gisele Silva Corrêa — Avaliação Neuropsicológica</p>
         <h1 class="text-lg font-bold text-slate-900 mt-1"><?= htmlspecialchars($patient['full_name']) ?></h1>
         <p class="text-xs text-slate-500 mb-6">Escaneie o QR Code abaixo para acessar a apresentação digital, o Mapa Neuropsicológico e a versão digital segura do laudo:</p>
-        <div class="inline-block p-4 bg-white border-2 border-teal-700 rounded-2xl shadow-sm">
+        <div class="inline-block p-4 bg-white border-2 border-[#1d4ed8] rounded-2xl shadow-sm">
             <img src="<?= htmlspecialchars($qrApiUrl) ?>" alt="QR Code Laudo" class="w-48 h-48 mx-auto">
         </div>
         <p class="text-[11px] text-slate-400 mt-4 break-all"><?= htmlspecialchars($targetUrl) ?></p>

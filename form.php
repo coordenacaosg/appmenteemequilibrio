@@ -82,17 +82,18 @@ $existingAnamnesis = !empty($patient['anamnesis_answers_json']) ? json_decode($p
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $type === 'anamnese' ? 'Anamnese Preliminar' : 'Cadastro do Cliente' ?> — Mente em Equilíbrio</title>
+    <title><?= $type === 'anamnese' ? 'Anamnese Preliminar' : 'Cadastro do Cliente' ?> — Gisele Silva Corrêa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 min-h-screen py-8 px-4">
-    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-        <div class="bg-teal-700 text-white px-6 py-5">
-            <span class="text-xs uppercase tracking-wider bg-teal-800 px-2.5 py-1 rounded-full font-semibold">Pré-Consulta Neuropsicológica</span>
-            <h1 class="text-2xl font-bold mt-2">
+<body class="bg-slate-50 min-h-screen py-10 px-4" style="font-family: 'Plus Jakarta Sans', sans-serif;">
+    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+        <div class="bg-[#1d4ed8] text-white px-7 py-6">
+            <span class="text-[11px] uppercase tracking-widest bg-[#1e40af] px-3 py-1 rounded-full font-semibold">Gisele Silva Corrêa • Avaliação Neuropsicológica</span>
+            <h1 class="text-2xl font-bold mt-2" style="font-family: 'Cormorant Garamond', Georgia, serif;">
                 <?= $type === 'anamnese' ? 'Formulário de Anamnese Preliminar' : 'Ficha de Cadastro do Cliente (Contrato e NF)' ?>
             </h1>
-            <p class="text-teal-100 text-sm mt-1">Paciente: <strong><?= htmlspecialchars($patient['full_name']) ?></strong></p>
+            <p class="text-blue-100 text-xs mt-1">Paciente: <strong><?= htmlspecialchars($patient['full_name']) ?></strong></p>
         </div>
 
         <div class="p-6">
@@ -186,7 +187,7 @@ $existingAnamnesis = !empty($patient['anamnesis_answers_json']) ? json_decode($p
                         🔒 <strong>Proteção de Dados (LGPD):</strong> As informações fornecidas são estritamente confidenciais e protegidas pelo sigilo profissional psicológico, destinando-se exclusivamente à condução da Avaliação Neuropsicológica.
                     </div>
 
-                    <button type="submit" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl shadow transition">
+                    <button type="submit" class="w-full bg-[#1d4ed8] hover:bg-[#1e40af] text-white font-semibold py-3 rounded-xl shadow-sm transition">
                         Confirmar e Enviar <?= $type === 'anamnese' ? 'Anamnese Preliminar' : 'Cadastro' ?>
                     </button>
                 </form>

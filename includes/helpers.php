@@ -52,19 +52,19 @@ function logAudit(PDO $pdo, array $user, ?int $patientId, string $action): void 
 
 function formatStageBadge(string $stage): array {
     return match ($stage) {
-        'vai_iniciar' => ['label' => 'Vai Iniciar (Pré-Consulta)', 'bg' => 'bg-amber-100 text-amber-800 border-amber-300'],
-        'em_avaliacao' => ['label' => 'Em Avaliação', 'bg' => 'bg-blue-100 text-blue-800 border-blue-300'],
-        'para_devolutiva' => ['label' => 'Vai para Devolutiva', 'bg' => 'bg-purple-100 text-purple-800 border-purple-300'],
-        'concluido' => ['label' => 'Concluído / Laudo Entregue', 'bg' => 'bg-emerald-100 text-emerald-800 border-emerald-300'],
-        default => ['label' => ucfirst($stage), 'bg' => 'bg-slate-100 text-slate-700 border-slate-300'],
+        'vai_iniciar' => ['label' => 'Pré-Consulta / Início', 'bg' => 'bg-blue-50 text-blue-800 border-blue-200'],
+        'em_avaliacao' => ['label' => 'Em Avaliação', 'bg' => 'bg-indigo-50 text-indigo-800 border-indigo-200'],
+        'para_devolutiva' => ['label' => 'Para Devolutiva', 'bg' => 'bg-slate-100 text-slate-800 border-slate-300'],
+        'concluido' => ['label' => 'Concluído', 'bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200'],
+        default => ['label' => ucfirst($stage), 'bg' => 'bg-slate-50 text-slate-600 border-slate-200'],
     };
 }
 
 function formatRoleBadge(string $role): array {
     return match ($role) {
-        'admin_gisele' => ['label' => 'Gisele (Coordenação)', 'bg' => 'bg-rose-100 text-rose-800 border-rose-300'],
-        'clinico' => ['label' => 'Equipe Clínica', 'bg' => 'bg-indigo-100 text-indigo-800 border-indigo-300'],
-        default => ['label' => 'Secretaria / Admin', 'bg' => 'bg-teal-100 text-teal-800 border-teal-300'],
+        'admin_gisele' => ['label' => 'Gisele • Coordenação', 'bg' => 'bg-blue-100/80 text-blue-900 border-blue-200'],
+        'clinico' => ['label' => 'Clínico', 'bg' => 'bg-slate-100 text-slate-700 border-slate-200'],
+        default => ['label' => 'Administrativo', 'bg' => 'bg-slate-50 text-slate-600 border-slate-200'],
     };
 }
 

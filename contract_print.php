@@ -74,7 +74,7 @@ $installments = !empty($patient['contract_installments_json']) ? json_decode($pa
                     ✍️ Confirmar Assinatura do Cliente
                 </button>
             </form>
-            <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-semibold shadow">
+            <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-[#1d4ed8] hover:bg-[#1e40af] text-white text-xs font-semibold shadow">
                 🖨️ Imprimir / Salvar PDF
             </button>
         </div>
@@ -84,7 +84,7 @@ $installments = !empty($patient['contract_installments_json']) ? json_decode($pa
     <div contenteditable="true" class="max-w-4xl mx-auto bg-white p-10 md:p-14 rounded-xl shadow-lg border border-slate-200 text-slate-800 leading-relaxed text-sm">
         <div class="text-center border-b border-slate-300 pb-6 mb-6">
             <h1 class="text-xl font-bold uppercase tracking-wide text-slate-900">Contrato de Prestação de Serviços de Avaliação Neuropsicológica</h1>
-            <p class="text-xs text-slate-500 mt-1">Clínica Mente em Equilíbrio — Gestão e Avaliação Neuropsicológica</p>
+            <p class="text-xs text-slate-500 mt-1">Gisele Silva Corrêa — Psicóloga e Neuropsicóloga (CRP 05/40880)</p>
         </div>
 
         <p class="mb-4">
