@@ -65,18 +65,19 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
             $age = $lead['patient_age'] !== null ? (int)$lead['patient_age'] : null;
             $ageGroup = calculateAgeGroup($age);
             $token = bin2hex(random_bytes(12));
+            $contractModel = ($age !== null && $age < 18) ? 'infantil' : 'adulto';
 
             $monthsPt = [1=>'janeiro',2=>'fevereiro',3=>'março',4=>'abril',5=>'maio',6=>'junho',7=>'julho',8=>'agosto',9=>'setembro',10=>'outubro',11=>'novembro',12=>'dezembro'];
             $curMonth = $monthsPt[(int)date('n')];
 
+            // Padrão oficial: R$ 4.500,00 em 3 parcelas de R$ 1.500,00 no boleto
             $defaultInstallments = json_encode([
-                ['parcela' => 1, 'vencimento' => date('Y-m-d', strtotime('+5 days')), 'valor' => '700,00', 'status' => 'Emitido'],
-                ['parcela' => 2, 'vencimento' => date('Y-m-d', strtotime('+35 days')), 'valor' => '700,00', 'status' => 'Emitido'],
-                ['parcela' => 3, 'vencimento' => date('Y-m-d', strtotime('+65 days')), 'valor' => '700,00', 'status' => 'Emitido'],
-                ['parcela' => 4, 'vencimento' => date('Y-m-d', strtotime('+95 days')), 'valor' => '700,00', 'status' => 'Emitido'],
+                ['parcela' => 1, 'vencimento' => date('Y-m-d', strtotime('+5 days')), 'valor' => '1.500,00', 'status' => 'Emitido'],
+                ['parcela' => 2, 'vencimento' => date('Y-m-d', strtotime('+35 days')), 'valor' => '1.500,00', 'status' => 'Emitido'],
+                ['parcela' => 3, 'vencimento' => date('Y-m-d', strtotime('+65 days')), 'valor' => '1.500,00', 'status' => 'Emitido'],
             ], JSON_UNESCAPED_UNICODE);
 
-            $ins = $pdo->prepare("INSERT INTO patients (code_number, lead_id, full_name, responsible_name, email_nf, phone_whatsapp, age, age_group, reference_year, start_month, current_stage, anamnesis_date, contract_total_value, contract_installments, contract_installments_json, public_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'vai_iniciar', ?, 2800.00, 4, ?, ?)");
+            $ins = $pdo->prepare("INSERT INTO patients (code_number, lead_id, full_name, responsible_name, email_nf, phone_whatsapp, age, age_group, reference_year, start_month, current_stage, anamnesis_date, contract_model, contract_total_value, contract_installments, contract_installments_json, public_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'vai_iniciar', ?, ?, 4500.00, 3, ?, ?)");
             $ins->execute([
                 $maxNum,
                 $leadId,
@@ -89,6 +90,7 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
                 date('Y'),
                 $curMonth,
                 $anamnesisDate,
+                $contractModel,
                 $defaultInstallments,
                 $token
             ]);
@@ -111,15 +113,15 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
         $ageGroup = calculateAgeGroup($age);
         $token = bin2hex(random_bytes(12));
         $stage = $_POST['current_stage'] ?: 'vai_iniciar';
+        $contractModel = ($age !== null && $age < 18) ? 'infantil' : 'adulto';
 
         $defaultInstallments = json_encode([
-            ['parcela' => 1, 'vencimento' => date('Y-m-d', strtotime('+5 days')), 'valor' => '700,00', 'status' => 'Aberto'],
-            ['parcela' => 2, 'vencimento' => date('Y-m-d', strtotime('+35 days')), 'valor' => '700,00', 'status' => 'Aberto'],
-            ['parcela' => 3, 'vencimento' => date('Y-m-d', strtotime('+65 days')), 'valor' => '700,00', 'status' => 'Aberto'],
-            ['parcela' => 4, 'vencimento' => date('Y-m-d', strtotime('+95 days')), 'valor' => '700,00', 'status' => 'Aberto'],
+            ['parcela' => 1, 'vencimento' => date('Y-m-d', strtotime('+5 days')), 'valor' => '1.500,00', 'status' => 'Aberto'],
+            ['parcela' => 2, 'vencimento' => date('Y-m-d', strtotime('+35 days')), 'valor' => '1.500,00', 'status' => 'Aberto'],
+            ['parcela' => 3, 'vencimento' => date('Y-m-d', strtotime('+65 days')), 'valor' => '1.500,00', 'status' => 'Aberto'],
         ], JSON_UNESCAPED_UNICODE);
 
-        $ins = $pdo->prepare("INSERT INTO patients (code_number, full_name, responsible_name, cpf_nf, email_nf, phone_whatsapp, age, age_group, school_name, education_level, reference_year, start_month, current_stage, anamnesis_date, contract_total_value, contract_installments, contract_installments_json, public_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 2800.00, 4, ?, ?)");
+        $ins = $pdo->prepare("INSERT INTO patients (code_number, full_name, responsible_name, cpf_nf, email_nf, phone_whatsapp, age, age_group, school_name, education_level, reference_year, start_month, current_stage, anamnesis_date, contract_model, contract_total_value, contract_installments, contract_installments_json, public_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 4500.00, 3, ?, ?)");
         $ins->execute([
             $maxNum,
             trim($_POST['full_name'] ?? "Paciente #{$maxNum}"),
@@ -135,6 +137,7 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
             trim($_POST['start_month'] ?? 'outubro'),
             $stage,
             $_POST['anamnesis_date'] ?: date('Y-m-d', strtotime('+4 days')),
+            $contractModel,
             $defaultInstallments,
             $token
         ]);
@@ -198,6 +201,11 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
         $age = $_POST['age'] !== '' ? (int)$_POST['age'] : null;
         $ageGroup = $_POST['age_group'] ?: calculateAgeGroup($age);
 
+        $contractModel = trim($_POST['contract_model'] ?? '');
+        if ($contractModel === '') {
+            $contractModel = ($age !== null && $age < 18) ? 'infantil' : 'adulto';
+        }
+
         $up = $pdo->prepare("UPDATE patients SET
             full_name=?, responsible_name=?, cpf_nf=?, email_nf=?, phone_whatsapp=?,
             age=?, age_group=?, school_name=?, education_level=?, address_full=?,
@@ -205,7 +213,9 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
             diag_1=?, diag_2=?, diag_3=?, diag_4=?, unlisted_comorbidity=?, final_diagnosis=?,
             current_stage=?, anamnesis_date=?, devolutiva_date=?,
             drive_folder_url=?, gamma_url=?, google_form_cadastro_url=?, google_form_anamnese_url=?,
-            home_scales_notes=?, school_interview_notes=?, informant_interview_notes=?
+            home_scales_notes=?, school_interview_notes=?, informant_interview_notes=?,
+            contract_model=?, responsible_kinship_1=?, responsible_phone_1=?,
+            responsible_name_2=?, responsible_cpf_2=?, responsible_phone_2=?, responsible_kinship_2=?
             WHERE id=?");
 
         $up->execute([
@@ -239,6 +249,13 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
             trim($_POST['home_scales_notes'] ?? ''),
             trim($_POST['school_interview_notes'] ?? ''),
             trim($_POST['informant_interview_notes'] ?? ''),
+            $contractModel,
+            trim($_POST['responsible_kinship_1'] ?? ''),
+            trim($_POST['responsible_phone_1'] ?? ''),
+            trim($_POST['responsible_name_2'] ?? ''),
+            trim($_POST['responsible_cpf_2'] ?? ''),
+            trim($_POST['responsible_phone_2'] ?? ''),
+            trim($_POST['responsible_kinship_2'] ?? ''),
             $patientId
         ]);
 
@@ -273,7 +290,18 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
     // 10. Salvar Boletos / Parcelas do Contrato e Controle de NF
     if ($action === 'save_contract_boletos') {
         $patientId = (int)$_POST['patient_id'];
-        $totalVal = (float)str_replace(',', '.', $_POST['contract_total_value'] ?? '2800');
+        $totalVal = (float)str_replace(['R$', ' ', '.'], ['', '', ''], str_replace(',', '.', $_POST['contract_total_value'] ?? '4500'));
+        $contractModel = in_array($_POST['contract_model'] ?? '', ['adulto', 'infantil']) ? $_POST['contract_model'] : 'adulto';
+        $contractPaymentMethod = trim($_POST['contract_payment_method'] ?? 'boleto_3x');
+
+        $respName = trim($_POST['responsible_name'] ?? '');
+        $respName2 = trim($_POST['responsible_name_2'] ?? '');
+        $respCpf2 = trim($_POST['responsible_cpf_2'] ?? '');
+        $respPhone2 = trim($_POST['responsible_phone_2'] ?? '');
+        $respKinship1 = trim($_POST['responsible_kinship_1'] ?? '');
+        $respKinship2 = trim($_POST['responsible_kinship_2'] ?? '');
+        $respAddress2 = trim($_POST['responsible_address_2'] ?? '');
+
         $dates = $_POST['boleto_date'] ?? [];
         $vals = $_POST['boleto_val'] ?? [];
         $statuses = $_POST['boleto_status'] ?? [];
@@ -284,7 +312,7 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
                 $instList[] = [
                     'parcela' => $idx + 1,
                     'vencimento' => $dt,
-                    'valor' => $vals[$idx] ?? '700,00',
+                    'valor' => $vals[$idx] ?? '1.500,00',
                     'status' => $statuses[$idx] ?? 'Emitido'
                 ];
             }
@@ -293,14 +321,14 @@ function handlePostActions(PDO $pdo, array $currentUser): ?string {
         $nfIssued = isset($_POST['nf_issued']) ? 1 : 0;
         $nfAt = $nfIssued ? date('Y-m-d H:i:s') : null;
 
-        $pdo->prepare("UPDATE patients SET contract_total_value=?, contract_installments=?, contract_installments_json=?, nf_issued=?, nf_issued_at=? WHERE id=?")
-            ->execute([$totalVal, $count, json_encode($instList, JSON_UNESCAPED_UNICODE), $nfIssued, $nfAt, $patientId]);
+        $pdo->prepare("UPDATE patients SET contract_model=?, contract_payment_method=?, responsible_name=COALESCE(NULLIF(?, ''), responsible_name), responsible_name_2=?, responsible_cpf_2=?, responsible_phone_2=?, responsible_kinship_1=?, responsible_kinship_2=?, responsible_address_2=?, contract_total_value=?, contract_installments=?, contract_installments_json=?, nf_issued=?, nf_issued_at=? WHERE id=?")
+            ->execute([$contractModel, $contractPaymentMethod, $respName, $respName2, $respCpf2, $respPhone2, $respKinship1, $respKinship2, $respAddress2, $totalVal, $count, json_encode($instList, JSON_UNESCAPED_UNICODE), $nfIssued, $nfAt, $patientId]);
 
         $pdo->prepare("UPDATE patient_tasks SET status='concluido', completed_at=CURRENT_TIMESTAMP, completed_by=? WHERE patient_id=? AND task_code IN ('ini_emitir_boletos', 'ini_editar_contrato')")
             ->execute([$currentUser['name'], $patientId]);
 
-        logAudit($pdo, $currentUser, $patientId, "Atualizou parcelas dos boletos no contrato e status de Nota Fiscal.");
-        return "Boletos e cláusula de pagamento do contrato atualizados!";
+        logAudit($pdo, $currentUser, $patientId, "Atualizou contrato (modelo: {$contractModel}), representantes legais e parcelas.");
+        return "Contrato, representantes e cláusula de pagamento atualizados com sucesso!";
     }
 
     // 11. Aprovação Rápida da Gisele (Contrato ou Impressão de Laudo)

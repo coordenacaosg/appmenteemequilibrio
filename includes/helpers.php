@@ -74,9 +74,11 @@ function formatRoleBadge(string $role): array {
 function buildPreConsultaReminderWhatsApp(array $patient, array $preTasks): string {
     $baseUrl = getBaseAppUrl();
     $token = $patient['public_token'] ?: 'token';
+    $isInfantil = (($patient['age'] !== null && (int)$patient['age'] < 18) || ($patient['contract_model'] ?? '') === 'infantil');
+    $modelParam = $isInfantil ? '&model=infantil' : '&model=adulto';
     $cadUrl = !empty($patient['google_form_cadastro_url']) ? $patient['google_form_cadastro_url'] : "{$baseUrl}/form.php?token={$token}&type=cadastro";
-    $anaUrl = !empty($patient['google_form_anamnese_url']) ? $patient['google_form_anamnese_url'] : "{$baseUrl}/form.php?token={$token}&type=anamnese";
-    $conUrl = "{$baseUrl}/contract_print.php?id={$patient['id']}";
+    $anaUrl = !empty($patient['google_form_anamnese_url']) ? $patient['google_form_anamnese_url'] : "{$baseUrl}/form.php?token={$token}&type=anamnese{$modelParam}";
+    $conUrl = "{$baseUrl}/contract_print.php?id={$patient['id']}&model=" . ($isInfantil ? 'infantil' : 'adulto');
 
     $pendingLines = [];
     foreach ($preTasks as $t) {

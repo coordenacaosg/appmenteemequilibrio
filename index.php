@@ -339,9 +339,12 @@ $baseUrl = getBaseAppUrl();
                             $prePct = round(($preDoneCount / $preTotalCount) * 100);
                             $waReminderUrl = buildPreConsultaReminderWhatsApp($selectedPatient, $preTasks);
                             $token = $selectedPatient['public_token'] ?: 'token';
+                            $isInfantil = ($selectedPatient['contract_model'] === 'infantil') || (!empty($selectedPatient['age']) && (int)$selectedPatient['age'] < 18);
+                            $anamneseModelParam = $isInfantil ? 'infantil' : 'adulto';
                             $nativeCadastroUrl = "{$baseUrl}/form.php?token={$token}&type=cadastro";
-                            $nativeAnamneseUrl = "{$baseUrl}/form.php?token={$token}&type=anamnese";
+                            $nativeAnamneseUrl = "{$baseUrl}/form.php?token={$token}&type=anamnese&model={$anamneseModelParam}";
                             $contractUrl = "{$baseUrl}/contract_print.php?id={$selectedPatient['id']}";
+                            $hasAnamneseAnswers = !empty($selectedPatient['anamnesis_answers_json']);
                         ?>
                             <!-- Card Superior do Paciente -->
                             <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6">
@@ -350,6 +353,9 @@ $baseUrl = getBaseAppUrl();
                                         <div class="flex items-center gap-2">
                                             <span class="text-[11px] font-semibold text-royal-700 bg-blue-50 px-2.5 py-0.5 rounded-md border border-blue-100">
                                                 Paciente #<?= htmlspecialchars((string)($selectedPatient['code_number'] ?: $selectedPatient['id'])) ?>
+                                            </span>
+                                            <span class="text-[11px] font-semibold <?= $isInfantil ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-slate-100 text-slate-700 border-slate-200' ?> px-2 py-0.5 rounded-md border">
+                                                <?= $isInfantil ? 'Infância / Adolescência' : 'Adulto / Geral' ?>
                                             </span>
                                             <?php $stBadge = formatStageBadge($selectedPatient['current_stage']); ?>
                                             <span class="text-[11px] font-medium px-2.5 py-0.5 rounded-full border <?= $stBadge['bg'] ?>">
@@ -381,7 +387,7 @@ $baseUrl = getBaseAppUrl();
                                         </a>
                                         <?php if (!empty($selectedPatient['drive_folder_url'])): ?>
                                             <a href="<?= htmlspecialchars($selectedPatient['drive_folder_url']) ?>" target="_blank"
-                                               class="bg-blue-50 hover:bg-blue-100 text-royal-700 border border-blue-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                class="bg-blue-50 hover:bg-blue-100 text-royal-700 border border-blue-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
                                                 Drive ↗
                                             </a>
                                         <?php endif; ?>
@@ -389,17 +395,18 @@ $baseUrl = getBaseAppUrl();
                                 </div>
 
                                 <!-- Sub-navegação Interna da Ficha do Cliente -->
-                                <div class="flex gap-2 mt-5 pt-4 border-t border-slate-100 text-xs font-semibold">
+                                <div class="flex flex-wrap gap-2 mt-5 pt-4 border-t border-slate-100 text-xs font-semibold">
                                     <?php
                                     $subTabs = [
-                                        'checklists' => '1. Pré-Consulta & Checklists por Etapa',
-                                        'testes' => '2. Bateria de Testes (Pasta / Excel / VOL)',
-                                        'prontuario' => '3. Dados Cadastrais, Links & Diagnósticos'
+                                        'checklists' => '1. Pré-Consulta & Checklists',
+                                        'testes' => '2. Bateria de Testes',
+                                        'prontuario' => '3. Dados Cadastrais & Contratuais',
+                                        'anamnese_respostas' => '4. Respostas da Anamnese (' . ($isInfantil ? 'Infantil' : 'Adulto') . ')' . ($hasAnamneseAnswers ? ' ✓' : '')
                                     ];
                                     foreach ($subTabs as $sKey => $sLabel):
                                     ?>
                                         <a href="?tab=clientes&stage=<?= urlencode($stageFilter) ?>&patient_id=<?= $selectedPatient['id'] ?>&sub=<?= $sKey ?>"
-                                           class="px-3.5 py-2 rounded-xl transition <?= $subView === $sKey ? 'bg-royal-700 text-white' : 'bg-slate-50 text-slate-600 hover:bg-blue-50 hover:text-royal-700' ?>">
+                                           class="px-3.5 py-2 rounded-xl transition <?= $subView === $sKey ? 'bg-royal-700 text-white shadow-xs' : 'bg-slate-50 text-slate-600 hover:bg-blue-50 hover:text-royal-700' ?>">
                                             <?= $sLabel ?>
                                         </a>
                                     <?php endforeach; ?>
@@ -585,49 +592,119 @@ $baseUrl = getBaseAppUrl();
                                     </div>
                                 </div>
 
-                            <?php else: ?>
+                            <?php elseif ($subView === 'prontuario'): ?>
                                 <!-- Sub-aba 3: Prontuário Administrativo, Links e Diagnósticos -->
                                 <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6">
-                                    <h4 class="font-serif font-bold text-xl text-slate-900 mb-4">Dados Cadastrais, Links Externos e Diagnósticos</h4>
-                                    <form method="POST" class="space-y-4 text-xs">
+                                    <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                                        <div>
+                                            <h4 class="font-serif font-bold text-xl text-slate-900">Dados Cadastrais, Representantes Legais & Modelo de Contrato</h4>
+                                            <p class="text-xs text-slate-400">Configurações para os modelos oficiais de contrato e relatórios.</p>
+                                        </div>
+                                        <a href="contract_print.php?id=<?= $selectedPatient['id'] ?>" target="_blank" class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
+                                            Visualizar Contrato Oficial ↗
+                                        </a>
+                                    </div>
+
+                                    <form method="POST" class="space-y-5 text-xs">
                                         <input type="hidden" name="action" value="update_patient_details">
                                         <input type="hidden" name="patient_id" value="<?= $selectedPatient['id'] ?>">
 
-                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                            <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Nome do Paciente</label>
-                                                <input type="text" name="full_name" value="<?= htmlspecialchars($selectedPatient['full_name'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+                                        <!-- Bloco 1: Modelo de Contrato e Paciente -->
+                                        <div class="p-4 rounded-xl bg-slate-50/80 border border-slate-200/70 space-y-3">
+                                            <h5 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Identificação do Avaliando & Modelo de Contrato</h5>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Nome Completo do Paciente *</label>
+                                                    <input type="text" name="full_name" value="<?= htmlspecialchars($selectedPatient['full_name'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2 font-medium">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Modelo de Contrato Oficial</label>
+                                                    <select name="contract_model" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2 font-semibold text-royal-700">
+                                                        <option value="infantil" <?= ($selectedPatient['contract_model'] === 'infantil' || ($isInfantil && empty($selectedPatient['contract_model']))) ? 'selected' : '' ?>>
+                                                            Infância e Adolescência (2 Representantes + Cláusula Presencial)
+                                                        </option>
+                                                        <option value="adulto" <?= ($selectedPatient['contract_model'] === 'adulto' || (!$isInfantil && empty($selectedPatient['contract_model']))) ? 'selected' : '' ?>>
+                                                            Adulto / Geral (Apenas Avaliando/a como Contratante)
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Etapa Atual no Fluxo</label>
+                                                    <select name="current_stage" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2 font-semibold">
+                                                        <option value="vai_iniciar" <?= $selectedPatient['current_stage'] === 'vai_iniciar' ? 'selected' : '' ?>>Pré-Consulta / Vai Iniciar</option>
+                                                        <option value="em_avaliacao" <?= $selectedPatient['current_stage'] === 'em_avaliacao' ? 'selected' : '' ?>>Em Avaliação</option>
+                                                        <option value="para_devolutiva" <?= $selectedPatient['current_stage'] === 'para_devolutiva' ? 'selected' : '' ?>>Vai para Devolutiva</option>
+                                                        <option value="concluido" <?= $selectedPatient['current_stage'] === 'concluido' ? 'selected' : '' ?>>Concluído</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Responsável (NF / Contrato)</label>
-                                                <input type="text" name="responsible_name" value="<?= htmlspecialchars($selectedPatient['responsible_name'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+
+                                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">Idade</label>
+                                                    <input type="number" name="age" value="<?= htmlspecialchars((string)($selectedPatient['age'] ?? '')) ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">CPF do Paciente</label>
+                                                    <input type="text" name="cpf_nf" value="<?= htmlspecialchars($selectedPatient['cpf_nf'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="000.000.000-00">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">WhatsApp do Paciente</label>
+                                                    <input type="text" name="phone_whatsapp" value="<?= htmlspecialchars($selectedPatient['phone_whatsapp'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">E-mail para Envio de NF</label>
+                                                    <input type="email" name="email_nf" value="<?= htmlspecialchars($selectedPatient['email_nf'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
                                             </div>
+
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Etapa Atual</label>
-                                                <select name="current_stage" class="w-full border border-slate-200 rounded-xl px-3 py-2 font-semibold">
-                                                    <option value="vai_iniciar" <?= $selectedPatient['current_stage'] === 'vai_iniciar' ? 'selected' : '' ?>>Pré-Consulta / Vai Iniciar</option>
-                                                    <option value="em_avaliacao" <?= $selectedPatient['current_stage'] === 'em_avaliacao' ? 'selected' : '' ?>>Em Avaliação</option>
-                                                    <option value="para_devolutiva" <?= $selectedPatient['current_stage'] === 'para_devolutiva' ? 'selected' : '' ?>>Vai para Devolutiva</option>
-                                                    <option value="concluido" <?= $selectedPatient['current_stage'] === 'concluido' ? 'selected' : '' ?>>Concluído</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label class="block font-medium text-slate-500 mb-1">CPF (Nota Fiscal)</label>
-                                                <input type="text" name="cpf_nf" value="<?= htmlspecialchars($selectedPatient['cpf_nf'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
-                                            </div>
-                                            <div>
-                                                <label class="block font-medium text-slate-500 mb-1">E-mail (Nota Fiscal)</label>
-                                                <input type="email" name="email_nf" value="<?= htmlspecialchars($selectedPatient['email_nf'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
-                                            </div>
-                                            <div>
-                                                <label class="block font-medium text-slate-500 mb-1">WhatsApp</label>
-                                                <input type="text" name="phone_whatsapp" value="<?= htmlspecialchars($selectedPatient['phone_whatsapp'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+                                                <label class="block font-medium text-slate-500 mb-1">Endereço Residencial Completo (com CEP e Cidade/UF)</label>
+                                                <input type="text" name="address_full" value="<?= htmlspecialchars($selectedPatient['address_full'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="Rua, Número, Complemento, Bairro, Cidade/UF, CEP">
                                             </div>
                                         </div>
 
+                                        <!-- Bloco 2: Representantes Legais -->
+                                        <div class="p-4 rounded-xl bg-slate-50/80 border border-slate-200/70 space-y-3">
+                                            <h5 class="font-bold text-slate-800 text-xs uppercase tracking-wider">Representantes Legais (Obrigatório para Menores de Idade)</h5>
+                                            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Representante Legal 1 (Nome)</label>
+                                                    <input type="text" name="responsible_name" value="<?= htmlspecialchars($selectedPatient['responsible_name'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Parentesco Rep. 1</label>
+                                                    <input type="text" name="responsible_kinship_1" value="<?= htmlspecialchars($selectedPatient['responsible_kinship_1'] ?? 'Mãe') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="Ex: Mãe, Pai">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Telefone Rep. 1</label>
+                                                    <input type="text" name="responsible_phone_1" value="<?= htmlspecialchars($selectedPatient['responsible_phone_1'] ?? ($selectedPatient['phone_whatsapp'] ?? '')) ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-600 mb-1">Representante 2 (Nome)</label>
+                                                    <input type="text" name="responsible_name_2" value="<?= htmlspecialchars($selectedPatient['responsible_name_2'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="Ex: Pai / Outro responsável">
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">CPF Rep. 2</label>
+                                                    <input type="text" name="responsible_cpf_2" value="<?= htmlspecialchars($selectedPatient['responsible_cpf_2'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="000.000.000-00">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">Parentesco Rep. 2</label>
+                                                    <input type="text" name="responsible_kinship_2" value="<?= htmlspecialchars($selectedPatient['responsible_kinship_2'] ?? 'Pai') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2" placeholder="Ex: Pai">
+                                                </div>
+                                                <div>
+                                                    <label class="block font-medium text-slate-500 mb-1">Telefone Rep. 2</label>
+                                                    <input type="text" name="responsible_phone_2" value="<?= htmlspecialchars($selectedPatient['responsible_phone_2'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-xl px-3 py-2">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Bloco 3: Escolaridade & Período Clínico -->
                                         <div class="grid grid-cols-2 md:grid-cols-5 gap-3 pt-3 border-t border-slate-100">
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Ano</label>
+                                                <label class="block font-medium text-slate-500 mb-1">Ano Referência</label>
                                                 <input type="text" name="reference_year" value="<?= htmlspecialchars($selectedPatient['reference_year'] ?? '2026') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                             <div>
@@ -639,12 +716,12 @@ $baseUrl = getBaseAppUrl();
                                                 <input type="text" name="end_month" value="<?= htmlspecialchars($selectedPatient['end_month'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Idade</label>
-                                                <input type="number" name="age" value="<?= htmlspecialchars((string)($selectedPatient['age'] ?? '')) ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+                                                <label class="block font-medium text-slate-500 mb-1">Nº Previsto de Sessões</label>
+                                                <input type="text" name="total_sessions" value="<?= htmlspecialchars((string)($selectedPatient['total_sessions'] ?? '12')) ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Nº Sessões</label>
-                                                <input type="text" name="total_sessions" value="<?= htmlspecialchars((string)($selectedPatient['total_sessions'] ?? '')) ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+                                                <label class="block font-medium text-slate-500 mb-1">Escolaridade</label>
+                                                <input type="text" name="education_level" value="<?= htmlspecialchars($selectedPatient['education_level'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                         </div>
 
@@ -659,15 +736,12 @@ $baseUrl = getBaseAppUrl();
                                                 </select>
                                             </div>
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Escolaridade</label>
-                                                <input type="text" name="education_level" value="<?= htmlspecialchars($selectedPatient['education_level'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
+                                                <label class="block font-medium text-slate-500 mb-1">Data da Anamnese</label>
+                                                <input type="date" name="anamnesis_date" value="<?= htmlspecialchars($selectedPatient['anamnesis_date'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                             <div>
-                                                <label class="block font-medium text-slate-500 mb-1">Anamnese / Devolutiva</label>
-                                                <div class="flex gap-1.5">
-                                                    <input type="date" name="anamnesis_date" value="<?= htmlspecialchars($selectedPatient['anamnesis_date'] ?? '') ?>" class="w-1/2 border border-slate-200 rounded-xl px-2 py-2">
-                                                    <input type="date" name="devolutiva_date" value="<?= htmlspecialchars($selectedPatient['devolutiva_date'] ?? '') ?>" class="w-1/2 border border-slate-200 rounded-xl px-2 py-2">
-                                                </div>
+                                                <label class="block font-medium text-slate-500 mb-1">Data da Devolutiva</label>
+                                                <input type="date" name="devolutiva_date" value="<?= htmlspecialchars($selectedPatient['devolutiva_date'] ?? '') ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2">
                                             </div>
                                         </div>
 
@@ -707,10 +781,291 @@ $baseUrl = getBaseAppUrl();
 
                                         <div class="pt-3 flex justify-end">
                                             <button type="submit" class="bg-royal-700 hover:bg-royal-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-sm transition">
-                                                Salvar Alterações
+                                                Salvar Dados Cadastrais & Contratuais
                                             </button>
                                         </div>
                                     </form>
+                                </div>
+
+                            <?php elseif ($subView === 'anamnese_respostas'): ?>
+                                <!-- Sub-aba 4: Respostas da Anamnese Preliminar (Adulto / Infantil) -->
+                                <?php
+                                $anamneseJson = !empty($selectedPatient['anamnesis_answers_json']) ? json_decode($selectedPatient['anamnesis_answers_json'], true) : null;
+                                $cadJson = !empty($selectedPatient['client_form_answers_json']) ? json_decode($selectedPatient['client_form_answers_json'], true) : null;
+                                ?>
+                                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
+                                    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-[11px] font-semibold <?= $isInfantil ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-blue-50 text-royal-700 border-blue-200' ?> px-2.5 py-0.5 rounded-md border">
+                                                    <?= $isInfantil ? 'Anamnese Infância e Adolescência (163 itens)' : 'Anamnese Adulto / Geral (77 perguntas)' ?>
+                                                </span>
+                                                <?php if ($anamneseJson): ?>
+                                                    <span class="text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-md">
+                                                        ✓ Preenchida em <?= htmlspecialchars($anamneseJson['_meta']['data_envio'] ?? 'Data registrada') ?>
+                                                    </span>
+                                                <?php else: ?>
+                                                    <span class="text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-md">
+                                                        Pendente de preenchimento
+                                                    </span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <h4 class="font-serif font-bold text-xl text-slate-900 mt-1">
+                                                Questionário de Anamnese Preliminar
+                                            </h4>
+                                        </div>
+
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <a href="<?= htmlspecialchars($nativeAnamneseUrl) ?>" target="_blank"
+                                               class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
+                                                Abrir / Editar Formulário Online ↗
+                                            </a>
+                                            <button onclick="navigator.clipboard.writeText('<?= htmlspecialchars($nativeAnamneseUrl) ?>'); alert('Link público da Anamnese copiado para a área de transferência!');"
+                                                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                Copiar Link
+                                            </button>
+                                            <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                Imprimir
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <?php if ($anamneseJson): ?>
+                                        <!-- Sumário Executivo de Destaque -->
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Respondente</span>
+                                                <p class="font-semibold text-slate-800 text-sm mt-0.5">
+                                                    <?= htmlspecialchars($anamneseJson['quem_preenche'] ?? ($anamneseJson['q2'] ?? 'Paciente / Familiar')) ?>
+                                                </p>
+                                                <p class="text-xs text-slate-500 mt-1">
+                                                    Email: <?= htmlspecialchars($anamneseJson['email'] ?? ($anamneseJson['q3'] ?? 'Não informado')) ?>
+                                                </p>
+                                            </div>
+                                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Modalidade & Pagamento</span>
+                                                <p class="font-semibold text-slate-800 text-sm mt-0.5">
+                                                    <?= htmlspecialchars($anamneseJson['modalidade'] ?? ($anamneseJson['q5'] ?? 'Presencial')) ?>
+                                                </p>
+                                                <p class="text-xs text-slate-500 mt-1">
+                                                    Prefere: <?= htmlspecialchars($anamneseJson['pagamento_pref'] ?? ($anamneseJson['q4'] ?? 'Não selecionado')) ?>
+                                                </p>
+                                            </div>
+                                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
+                                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total de Questões Respondidas</span>
+                                                <p class="font-bold text-royal-700 text-xl mt-0.5">
+                                                    <?= count(array_filter($anamneseJson, fn($k) => $k !== '_meta', ARRAY_FILTER_USE_KEY)) ?> campos
+                                                </p>
+                                                <p class="text-[11px] text-emerald-600 mt-1">✓ Termo de serviço aceito</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Respostas Detalhadas em Seções Expansíveis -->
+                                        <div class="space-y-4 text-xs">
+                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
+                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
+                                                    <span>1. Identificação, Pagamento & Família</span>
+                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                                                </summary>
+                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-700">
+                                                    <?php
+                                                    $sec1Fields = [
+                                                        'quem_preenche' => 'Quem está preenchendo',
+                                                        'email' => 'E-mail informado',
+                                                        'pagamento_pref' => 'Forma de pagamento preferida',
+                                                        'modalidade' => 'Modalidade',
+                                                        'nome' => 'Nome completo do(a) paciente',
+                                                        'sexo' => 'Sexo',
+                                                        'data_nasc' => 'Data de nascimento',
+                                                        'idade' => 'Idade',
+                                                        'cpf' => 'CPF',
+                                                        'mora_com' => 'Mora atualmente com',
+                                                        'dominancia' => 'Dominância lateral',
+                                                        'tem_filhos' => 'Possui filhos',
+                                                        'estado_civil' => 'Estado civil',
+                                                        'mae_nome' => 'Nome da Mãe',
+                                                        'mae_idade' => 'Idade da Mãe',
+                                                        'mae_profissao' => 'Profissão da Mãe',
+                                                        'pai_nome' => 'Nome do Pai',
+                                                        'pai_idade' => 'Idade do Pai',
+                                                        'pai_profissao' => 'Profissão do Pai',
+                                                        'pais_estado_civil' => 'Estado civil dos pais',
+                                                        'tem_irmaos' => 'Possui irmãos'
+                                                    ];
+                                                    foreach ($sec1Fields as $k => $lbl):
+                                                        if (!isset($anamneseJson[$k])) continue;
+                                                        $val = $anamneseJson[$k];
+                                                    ?>
+                                                        <div class="p-2.5 rounded-lg bg-slate-50/60 border border-slate-100">
+                                                            <strong class="text-slate-500 block text-[11px]"><?= $lbl ?></strong>
+                                                            <div class="mt-0.5 font-medium text-slate-800">
+                                                                <?php if (is_array($val)): ?>
+                                                                    <div class="flex flex-wrap gap-1 mt-1">
+                                                                        <?php foreach ($val as $item): ?>
+                                                                            <span class="bg-blue-50 text-royal-700 px-2 py-0.5 rounded text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                <?php else: ?>
+                                                                    <?= nl2br(htmlspecialchars((string)$val)) ?>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </details>
+
+                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
+                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
+                                                    <span>2. Concepção, Gestação, Parto & Desenvolvimento</span>
+                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                                                </summary>
+                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-700">
+                                                    <?php
+                                                    $sec2Fields = [
+                                                        'gestacao_planejada' => 'Gestação foi planejada',
+                                                        'gestacao_ordem' => 'Posição na ordem das gestações',
+                                                        'gestacao_idade_mae' => 'Idade da mãe durante a gestação',
+                                                        'gestacao_doenca' => 'Doença durante a gestação',
+                                                        'gestacao_estresse' => 'Estresse materno na gestação/1º ano',
+                                                        'gestacao_medicacao' => 'Medicação na gestação',
+                                                        'gestacao_substancia' => 'Consumo de substâncias na gestação',
+                                                        'gestacao_prematuro' => 'Nasceu prematuro',
+                                                        'gestacao_semanas' => 'Duração da gestação em semanas',
+                                                        'gestacao_multipla' => 'Gestação múltipla',
+                                                        'tipo_parto' => 'Tipo de parto',
+                                                        'chorou_nascer' => 'Chorou logo ao nascer',
+                                                        'apgar' => 'APGAR ao nascer',
+                                                        'peso_nascer' => 'Peso ao nascer',
+                                                        'perimetro_cefalico' => 'Perímetro cefálico',
+                                                        'pais_consanguineos' => 'Pais consanguíneos',
+                                                        'intercorrencias_parto' => 'Intercorrências no parto/pós-parto',
+                                                        'bercario_mais_3dias' => 'Mais de 3 dias no berçário'
+                                                    ];
+                                                    foreach ($sec2Fields as $k => $lbl):
+                                                        if (!isset($anamneseJson[$k])) continue;
+                                                        $val = $anamneseJson[$k];
+                                                    ?>
+                                                        <div class="p-2.5 rounded-lg bg-slate-50/60 border border-slate-100">
+                                                            <strong class="text-slate-500 block text-[11px]"><?= $lbl ?></strong>
+                                                            <div class="mt-0.5 font-medium text-slate-800">
+                                                                <?php if (is_array($val)): ?>
+                                                                    <div class="flex flex-wrap gap-1 mt-1">
+                                                                        <?php foreach ($val as $item): ?>
+                                                                            <span class="bg-blue-50 text-royal-700 px-2 py-0.5 rounded text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                <?php else: ?>
+                                                                    <?= nl2br(htmlspecialchars((string)$val)) ?>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </details>
+
+                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
+                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
+                                                    <span>3. Queixas, Motivo da Avaliação & Prejuízos Funcionais</span>
+                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                                                </summary>
+                                                <div class="p-4 space-y-3 text-slate-700">
+                                                    <?php
+                                                    $sec3Fields = [
+                                                        'demanda' => 'Demanda / Encaminhamento',
+                                                        'hipotese' => 'Hipótese diagnóstica que motivou a busca',
+                                                        'primeiros_sinais_idade' => 'Idade em que notou os primeiros sinais',
+                                                        'tempo_dificuldades' => 'Início das dificuldades percebidas',
+                                                        'impacto_dia_a_dia' => 'Impacto das dificuldades no dia a dia',
+                                                        'dificuldades_infancia' => 'Dificuldades presentes na infância',
+                                                        'sinais_preocupacao' => 'Primeiros sinais/sintomas que despertaram preocupação',
+                                                        'comportamentos_brincadeira' => 'Comportamentos ao brincar',
+                                                        'intervencoes_atuais' => 'Intervenções ou acompanhamentos atuais',
+                                                        'comportamentos_atuais' => 'Checklist de comportamentos observados',
+                                                        'como_encontrou' => 'Como encontrou o contato'
+                                                    ];
+                                                    foreach ($sec3Fields as $k => $lbl):
+                                                        if (!isset($anamneseJson[$k])) continue;
+                                                        $val = $anamneseJson[$k];
+                                                    ?>
+                                                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                                                            <strong class="text-royal-800 block text-xs mb-1"><?= $lbl ?></strong>
+                                                            <div class="text-slate-800 text-xs">
+                                                                <?php if (is_array($val)): ?>
+                                                                    <div class="flex flex-wrap gap-1.5 mt-1">
+                                                                        <?php foreach ($val as $item): ?>
+                                                                            <span class="bg-blue-100/70 text-royal-800 font-medium px-2 py-0.5 rounded-md text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                <?php else: ?>
+                                                                    <p class="whitespace-pre-line leading-relaxed"><?= htmlspecialchars((string)$val) ?></p>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </details>
+
+                                            <!-- Prejuízos Funcionais Cognitivos com Exemplos (Adulto & Infantil) -->
+                                            <details class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
+                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
+                                                    <span>4. Domínios Cognitivos & Exemplos de Impacto (Atenção, Memória, Linguagem, Executivas, Motor, etc.)</span>
+                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                                                </summary>
+                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                    <?php
+                                                    foreach ($anamneseJson as $k => $val):
+                                                        if (in_array($k, array_merge(array_keys($sec1Fields), array_keys($sec2Fields), array_keys($sec3Fields), ['_meta']))) continue;
+                                                        if (empty($val)) continue;
+                                                    ?>
+                                                        <div class="p-2.5 rounded-lg bg-slate-50/70 border border-slate-100">
+                                                            <strong class="text-slate-500 block text-[11px]"><?= htmlspecialchars(strtoupper(str_replace('_', ' ', $k))) ?></strong>
+                                                            <div class="mt-1 font-medium text-slate-800">
+                                                                <?php if (is_array($val)): ?>
+                                                                    <div class="flex flex-wrap gap-1">
+                                                                        <?php foreach ($val as $item): ?>
+                                                                            <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded text-[10px]"><?= htmlspecialchars((string)$item) ?></span>
+                                                                        <?php endforeach; ?>
+                                                                    </div>
+                                                                <?php else: ?>
+                                                                    <p class="whitespace-pre-line"><?= htmlspecialchars((string)$val) ?></p>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </details>
+                                        </div>
+
+                                    <?php else: ?>
+                                        <!-- Estado Vazio / Aguardando Preenchimento -->
+                                        <div class="p-8 text-center rounded-2xl bg-slate-50 border border-dashed border-slate-300 space-y-4">
+                                            <div class="w-12 h-12 rounded-full bg-blue-100 text-royal-700 flex items-center justify-center mx-auto text-xl font-bold">
+                                                📝
+                                            </div>
+                                            <div>
+                                                <h5 class="font-serif font-bold text-lg text-slate-900">A Anamnese ainda não foi respondida online</h5>
+                                                <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">
+                                                    Envie o link para o paciente ou responsável pelo WhatsApp. Assim que enviado, as respostas e checklists aparecerão automaticamente nesta aba.
+                                                </p>
+                                            </div>
+
+                                            <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+                                                <a href="<?= htmlspecialchars($waReminderUrl) ?>" target="_blank"
+                                                   class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">
+                                                    Enviar Cobrança Pré-Consulta no WhatsApp
+                                                </a>
+                                                <a href="<?= htmlspecialchars($nativeAnamneseUrl) ?>" target="_blank"
+                                                   class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">
+                                                    Preencher Manualmente Agora ↗
+                                                </a>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php else: ?>
+                                <!-- Fallback se subView for inválido -->
+                                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 text-center text-xs text-slate-500">
+                                    Selecione uma das opções acima para visualizar os dados do paciente.
                                 </div>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -996,35 +1351,83 @@ $baseUrl = getBaseAppUrl();
                                 <input type="hidden" name="action" value="save_contract_boletos">
                                 <input type="hidden" name="patient_id" value="<?= $selectedPatient['id'] ?>">
 
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                    <div>
+                                        <label class="block font-medium text-slate-500 mb-1">Modelo de Contrato</label>
+                                        <select name="contract_model" class="w-full border border-slate-200 rounded-xl px-3 py-2 font-semibold text-royal-700">
+                                            <option value="infantil" <?= ($selectedPatient['contract_model'] === 'infantil' || (empty($selectedPatient['contract_model']) && !empty($selectedPatient['age']) && (int)$selectedPatient['age'] < 18)) ? 'selected' : '' ?>>
+                                                Infância e Adolescência (2 Reps + Presencial)
+                                            </option>
+                                            <option value="adulto" <?= ($selectedPatient['contract_model'] === 'adulto' || (empty($selectedPatient['contract_model']) && !empty($selectedPatient['age']) && (int)$selectedPatient['age'] >= 18)) ? 'selected' : '' ?>>
+                                                Adulto / Geral (Qualificação Simples)
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium text-slate-500 mb-1">Forma de Pagamento</label>
+                                        <select name="contract_payment_method" class="w-full border border-slate-200 rounded-xl px-3 py-2 font-medium">
+                                            <option value="boleto_3x" <?= ($selectedPatient['contract_payment_method'] ?? 'boleto_3x') === 'boleto_3x' ? 'selected' : '' ?>>Boleto Parcelado em 3x (R$ 4.500,00)</option>
+                                            <option value="a_vista" <?= ($selectedPatient['contract_payment_method'] ?? '') === 'a_vista' ? 'selected' : '' ?>>À Vista - PIX/Transferência (R$ 4.500,00)</option>
+                                            <option value="cartao_10x" <?= ($selectedPatient['contract_payment_method'] ?? '') === 'cartao_10x' ? 'selected' : '' ?>>Cartão de Crédito 10x de R$ 520 (R$ 5.200,00)</option>
+                                            <option value="personalizado" <?= ($selectedPatient['contract_payment_method'] ?? '') === 'personalizado' ? 'selected' : '' ?>>Personalizado</option>
+                                        </select>
+                                    </div>
                                     <div>
                                         <label class="block font-medium text-slate-500 mb-1">Valor Total (R$)</label>
-                                        <input type="text" name="contract_total_value" value="<?= htmlspecialchars((string)$selectedPatient['contract_total_value']) ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2 font-semibold">
+                                        <input type="text" name="contract_total_value" value="<?= htmlspecialchars((string)($selectedPatient['contract_total_value'] ?: '4500,00')) ?>" class="w-full border border-slate-200 rounded-xl px-3 py-2 font-bold text-royal-700">
                                     </div>
                                     <div class="flex items-end">
-                                        <label class="flex items-center gap-2 font-medium text-slate-700 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200 w-full">
+                                        <label class="flex items-center gap-2 font-medium text-slate-700 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200 w-full cursor-pointer">
                                             <input type="checkbox" name="nf_issued" value="1" <?= $selectedPatient['nf_issued'] ? 'checked' : '' ?> class="w-4 h-4 accent-royal-700">
-                                            Nota Fiscal (NF) já emitida
+                                            Nota Fiscal (NF) emitida
                                         </label>
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                                    <?php for ($i = 0; $i < 4; $i++):
-                                        $rowInst = $instList[$i] ?? ['parcela' => $i+1, 'vencimento' => '', 'valor' => '700,00', 'status' => 'Emitido'];
+                                <div class="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-royal-800">
+                                    <div>
+                                        <strong>Dados Oficiais para Recebimento:</strong> Banco Inter (077) • Agência: 0001 • C/C: 32761183-9 • Chave PIX (CNPJ): 53.076.815/0001-10
+                                    </div>
+                                    <div>
+                                        WhatsApp Comprovantes: <strong>(24) 99964-2123</strong>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <?php
+                                    $numParc = max(3, count($instList));
+                                    if ($numParc > 10) $numParc = 10;
+                                    for ($i = 0; $i < 3; $i++):
+                                        $rowInst = $instList[$i] ?? ['parcela' => $i+1, 'vencimento' => '', 'valor' => '1.500,00', 'status' => 'Emitido'];
                                     ?>
                                         <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 space-y-2">
-                                            <span class="font-semibold text-slate-800"><?= $i + 1 ?>ª Parcela</span>
-                                            <input type="date" name="boleto_date[]" value="<?= htmlspecialchars($rowInst['vencimento'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-lg px-2.5 py-1.5">
-                                            <input type="text" name="boleto_val[]" value="<?= htmlspecialchars($rowInst['valor'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-lg px-2.5 py-1.5">
+                                            <div class="flex items-center justify-between">
+                                                <span class="font-semibold text-slate-800"><?= $i + 1 ?>ª Parcela</span>
+                                                <span class="text-[10px] text-slate-400">
+                                                    <?= $i === 0 ? '(Na assinatura/anamnese)' : ($i === 1 ? '(30 dias após)' : '(60 dias após)') ?>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] text-slate-500 mb-0.5">Vencimento</label>
+                                                <input type="date" name="boleto_date[]" value="<?= htmlspecialchars($rowInst['vencimento'] ?? '') ?>" class="w-full border border-slate-200 bg-white rounded-lg px-2.5 py-1.5">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[10px] text-slate-500 mb-0.5">Valor (R$)</label>
+                                                <input type="text" name="boleto_val[]" value="<?= htmlspecialchars($rowInst['valor'] ?? '1.500,00') ?>" class="w-full border border-slate-200 bg-white rounded-lg px-2.5 py-1.5 font-medium">
+                                            </div>
                                             <input type="hidden" name="boleto_status[]" value="<?= htmlspecialchars($rowInst['status'] ?? 'Emitido') ?>">
                                         </div>
                                     <?php endfor; ?>
                                 </div>
 
-                                <button type="submit" class="bg-royal-700 hover:bg-royal-800 text-white font-semibold px-5 py-2.5 rounded-xl">
-                                    Salvar Parcelas no Contrato
-                                </button>
+                                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                                    <button type="submit" class="bg-royal-700 hover:bg-royal-800 text-white font-semibold px-6 py-2.5 rounded-xl transition">
+                                        Salvar Informações Financeiras e Contratuais
+                                    </button>
+                                    <a href="contract_print.php?id=<?= $selectedPatient['id'] ?>" target="_blank" class="text-royal-700 font-semibold hover:underline">
+                                        Ver Contrato em PDF / Impressão ↗
+                                    </a>
+                                </div>
                             </form>
                         </div>
                     <?php endif; ?>

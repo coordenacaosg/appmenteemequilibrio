@@ -50,6 +50,7 @@ function getDbConnection(): PDO {
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             ]);
             initializeDatabase($pdo, 'mysql');
+            ensureDatabaseColumns($pdo, 'mysql');
             return $pdo;
         } catch (Throwable $e) {
             // Em caso de falha local no MySQL, usa SQLite para não travar a operação
@@ -72,7 +73,46 @@ function getDbConnection(): PDO {
     ]);
     $pdo->exec('PRAGMA foreign_keys = ON;');
     initializeDatabase($pdo, 'sqlite');
+    ensureDatabaseColumns($pdo, 'sqlite');
     return $pdo;
+}
+
+function ensureDatabaseColumns(PDO $pdo, string $driver): void {
+    $neededColumns = [
+        'responsible_name_2' => 'VARCHAR(160) DEFAULT NULL',
+        'responsible_cpf_2' => 'VARCHAR(30) DEFAULT NULL',
+        'responsible_phone_2' => 'VARCHAR(40) DEFAULT NULL',
+        'responsible_kinship_1' => 'VARCHAR(60) DEFAULT NULL',
+        'responsible_kinship_2' => 'VARCHAR(60) DEFAULT NULL',
+        'responsible_address_2' => 'TEXT DEFAULT NULL',
+        'contract_model' => "VARCHAR(30) DEFAULT 'adulto'",
+        'contract_payment_method' => "VARCHAR(40) DEFAULT 'boleto_3x'",
+        'anamnesis_type' => 'VARCHAR(30) DEFAULT NULL',
+        'client_form_answers_json' => 'TEXT DEFAULT NULL',
+    ];
+
+    try {
+        $existingCols = [];
+        if ($driver === 'mysql') {
+            $stmt = $pdo->query("SHOW COLUMNS FROM patients");
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $existingCols[] = strtolower($row['Field']);
+            }
+        } else {
+            $stmt = $pdo->query("PRAGMA table_info(patients)");
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $existingCols[] = strtolower($row['name']);
+            }
+        }
+
+        foreach ($neededColumns as $col => $type) {
+            if (!in_array(strtolower($col), $existingCols, true)) {
+                $pdo->exec("ALTER TABLE patients ADD COLUMN {$col} {$type}");
+            }
+        }
+    } catch (Throwable $e) {
+        // Silencioso se a tabela ainda estiver sendo criada
+    }
 }
 
 function initializeDatabase(PDO $pdo, string $driver): void {
@@ -131,6 +171,14 @@ function initializeDatabase(PDO $pdo, string $driver): void {
             lead_id INT DEFAULT NULL,
             full_name VARCHAR(160) NOT NULL,
             responsible_name VARCHAR(160) DEFAULT NULL,
+            responsible_name_2 VARCHAR(160) DEFAULT NULL,
+            responsible_cpf_2 VARCHAR(30) DEFAULT NULL,
+            responsible_phone_2 VARCHAR(40) DEFAULT NULL,
+            responsible_kinship_1 VARCHAR(60) DEFAULT NULL,
+            responsible_kinship_2 VARCHAR(60) DEFAULT NULL,
+            responsible_address_2 TEXT DEFAULT NULL,
+            contract_model VARCHAR(30) DEFAULT 'adulto',
+            contract_payment_method VARCHAR(40) DEFAULT 'boleto_3x',
             cpf_nf VARCHAR(30) DEFAULT NULL,
             email_nf VARCHAR(150) DEFAULT NULL,
             phone_whatsapp VARCHAR(40) DEFAULT NULL,
@@ -160,9 +208,11 @@ function initializeDatabase(PDO $pdo, string $driver): void {
             home_scales_notes TEXT DEFAULT NULL,
             school_interview_notes TEXT DEFAULT NULL,
             informant_interview_notes TEXT DEFAULT NULL,
+            anamnesis_type VARCHAR(30) DEFAULT NULL,
             anamnesis_answers_json TEXT DEFAULT NULL,
-            contract_total_value DECIMAL(10,2) DEFAULT 2800.00,
-            contract_installments INT DEFAULT 4,
+            client_form_answers_json TEXT DEFAULT NULL,
+            contract_total_value DECIMAL(10,2) DEFAULT 4500.00,
+            contract_installments INT DEFAULT 3,
             contract_installments_json TEXT DEFAULT NULL,
             contract_gisele_approved TINYINT(1) DEFAULT 0,
             contract_gisele_approved_at DATETIME DEFAULT NULL,
