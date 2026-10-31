@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/includes/actions.php';
 require_once __DIR__ . '/includes/metrics.php';
+require_once __DIR__ . '/includes/form_renderer.php';
 
 $pdo = getDbConnection();
 $currentUser = getCurrentUser($pdo);
@@ -343,8 +344,11 @@ $baseUrl = getBaseAppUrl();
                             $anamneseModelParam = $isInfantil ? 'infantil' : 'adulto';
                             $nativeCadastroUrl = "{$baseUrl}/form.php?token={$token}&type=cadastro";
                             $nativeAnamneseUrl = "{$baseUrl}/form.php?token={$token}&type=anamnese&model={$anamneseModelParam}";
+                            $googleCadastroUrl = getOfficialGoogleFormUrl('cadastro');
+                            $googleAnamneseUrl = getOfficialGoogleFormUrl('anamnese', $anamneseModelParam);
                             $contractUrl = "{$baseUrl}/contract_print.php?id={$selectedPatient['id']}";
                             $hasAnamneseAnswers = !empty($selectedPatient['anamnesis_answers_json']);
+                            $hasCadastroAnswers = !empty($selectedPatient['client_form_answers_json']);
                         ?>
                             <!-- Card Superior do Paciente -->
                             <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6">
@@ -400,7 +404,7 @@ $baseUrl = getBaseAppUrl();
                                     $subTabs = [
                                         'checklists' => '1. Pré-Consulta & Checklists',
                                         'testes' => '2. Bateria de Testes',
-                                        'prontuario' => '3. Dados Cadastrais & Contratuais',
+                                        'prontuario' => '3. Dados Cadastrais & Contratuais' . ($hasCadastroAnswers ? ' ✓' : ''),
                                         'anamnese_respostas' => '4. Respostas da Anamnese (' . ($isInfantil ? 'Infantil' : 'Adulto') . ')' . ($hasAnamneseAnswers ? ' ✓' : '')
                                     ];
                                     foreach ($subTabs as $sKey => $sLabel):
@@ -436,26 +440,36 @@ $baseUrl = getBaseAppUrl();
                                         <?php foreach ($preTasks as $pt):
                                             $isDone = ($pt['status'] === 'concluido');
                                             $itemLink = $nativeCadastroUrl;
+                                            $googleLink = null;
                                             if ($pt['task_code'] === 'cli_anamnese_preliminar') {
                                                 $itemLink = !empty($selectedPatient['google_form_anamnese_url']) ? $selectedPatient['google_form_anamnese_url'] : $nativeAnamneseUrl;
+                                                $googleLink = $googleAnamneseUrl;
                                             } elseif ($pt['task_code'] === 'cli_contrato_assinado') {
                                                 $itemLink = $contractUrl;
                                             } else {
                                                 $itemLink = !empty($selectedPatient['google_form_cadastro_url']) ? $selectedPatient['google_form_cadastro_url'] : $nativeCadastroUrl;
+                                                $googleLink = $googleCadastroUrl;
                                             }
                                         ?>
                                             <div class="py-3.5 flex flex-wrap items-center justify-between gap-4">
                                                 <div>
                                                     <p class="font-semibold text-slate-900 text-sm"><?= htmlspecialchars($pt['task_title']) ?></p>
-                                                    <div class="flex flex-wrap items-center gap-3 mt-0.5 text-xs">
+                                                    <div class="flex flex-wrap items-center gap-2 mt-0.5 text-xs">
                                                         <?php if ($isDone): ?>
                                                             <span class="text-emerald-600 font-medium">Concluído em <?= date('d/m/Y H:i', strtotime($pt['completed_at'] ?? 'now')) ?></span>
                                                         <?php else: ?>
                                                             <span class="text-slate-400">Pendente</span>
                                                         <?php endif; ?>
-                                                        <a href="<?= htmlspecialchars($itemLink) ?>" target="_blank" class="text-royal-700 hover:underline font-medium">
-                                                            Abrir formulário ↗
+                                                        <span class="text-slate-300">•</span>
+                                                        <a href="<?= htmlspecialchars($itemLink) ?>" target="_blank" class="text-royal-700 hover:underline font-semibold">
+                                                            Formulário Online ↗
                                                         </a>
+                                                        <?php if ($googleLink): ?>
+                                                            <span class="text-slate-300">•</span>
+                                                            <a href="<?= htmlspecialchars($googleLink) ?>" target="_blank" class="text-slate-500 hover:text-royal-700 hover:underline font-medium">
+                                                                Google Forms Oficial ↗
+                                                            </a>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
 
@@ -594,15 +608,30 @@ $baseUrl = getBaseAppUrl();
 
                             <?php elseif ($subView === 'prontuario'): ?>
                                 <!-- Sub-aba 3: Prontuário Administrativo, Links e Diagnósticos -->
+                                <?php
+                                $cadJson = !empty($selectedPatient['client_form_answers_json']) ? json_decode($selectedPatient['client_form_answers_json'], true) : null;
+                                ?>
                                 <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6">
+                                    <?php if ($cadJson): ?>
+                                        <?= renderClientFormAnswersViewer($cadJson) ?>
+                                    <?php endif; ?>
+
                                     <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
                                         <div>
                                             <h4 class="font-serif font-bold text-xl text-slate-900">Dados Cadastrais, Representantes Legais & Modelo de Contrato</h4>
                                             <p class="text-xs text-slate-400">Configurações para os modelos oficiais de contrato e relatórios.</p>
                                         </div>
-                                        <a href="contract_print.php?id=<?= $selectedPatient['id'] ?>" target="_blank" class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
-                                            Visualizar Contrato Oficial ↗
-                                        </a>
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <a href="<?= htmlspecialchars($nativeCadastroUrl) ?>" target="_blank" class="bg-blue-50 hover:bg-blue-100 text-royal-700 border border-blue-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                Cadastro Online ↗
+                                            </a>
+                                            <a href="<?= htmlspecialchars($googleCadastroUrl) ?>" target="_blank" class="bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                Google Forms ↗
+                                            </a>
+                                            <a href="contract_print.php?id=<?= $selectedPatient['id'] ?>" target="_blank" class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition">
+                                                Visualizar Contrato ↗
+                                            </a>
+                                        </div>
                                     </div>
 
                                     <form method="POST" class="space-y-5 text-xs">
@@ -792,13 +821,16 @@ $baseUrl = getBaseAppUrl();
                                 <?php
                                 $anamneseJson = !empty($selectedPatient['anamnesis_answers_json']) ? json_decode($selectedPatient['anamnesis_answers_json'], true) : null;
                                 $cadJson = !empty($selectedPatient['client_form_answers_json']) ? json_decode($selectedPatient['client_form_answers_json'], true) : null;
+                                $schemas = getFormSchemas();
+                                $schemaName = $isInfantil ? 'anamnese_crianca' : 'anamnese_adulto';
+                                $schema = $schemas[$schemaName] ?? [];
                                 ?>
                                 <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-6 space-y-6">
                                     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
                                         <div>
                                             <div class="flex items-center gap-2">
                                                 <span class="text-[11px] font-semibold <?= $isInfantil ? 'bg-amber-50 text-amber-800 border-amber-200' : 'bg-blue-50 text-royal-700 border-blue-200' ?> px-2.5 py-0.5 rounded-md border">
-                                                    <?= $isInfantil ? 'Anamnese Infância e Adolescência (163 itens)' : 'Anamnese Adulto / Geral (77 perguntas)' ?>
+                                                    <?= $isInfantil ? 'Anamnese Infância e Adolescência (179 itens - Google Forms)' : 'Anamnese Adulto / Geral (87 itens - Google Forms)' ?>
                                                 </span>
                                                 <?php if ($anamneseJson): ?>
                                                     <span class="text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-md">
@@ -820,9 +852,17 @@ $baseUrl = getBaseAppUrl();
                                                class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
                                                 Abrir / Editar Formulário Online ↗
                                             </a>
+                                            <a href="<?= htmlspecialchars($googleAnamneseUrl) ?>" target="_blank"
+                                               class="bg-blue-50 hover:bg-blue-100 text-royal-700 border border-blue-200 text-xs font-semibold px-3 py-2 rounded-xl transition" title="Abrir formulário no Google Forms original">
+                                                Google Forms Oficial ↗
+                                            </a>
                                             <button onclick="navigator.clipboard.writeText('<?= htmlspecialchars($nativeAnamneseUrl) ?>'); alert('Link público da Anamnese copiado para a área de transferência!');"
                                                     class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition">
                                                 Copiar Link
+                                            </button>
+                                            <button onclick="navigator.clipboard.writeText('<?= htmlspecialchars($googleAnamneseUrl) ?>'); alert('Link do Google Forms copiado para a área de transferência!');"
+                                                    class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition">
+                                                Copiar Google Forms
                                             </button>
                                             <button onclick="window.print()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition">
                                                 Imprimir
@@ -854,187 +894,14 @@ $baseUrl = getBaseAppUrl();
                                             <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80">
                                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total de Questões Respondidas</span>
                                                 <p class="font-bold text-royal-700 text-xl mt-0.5">
-                                                    <?= count(array_filter($anamneseJson, fn($k) => $k !== '_meta', ARRAY_FILTER_USE_KEY)) ?> campos
+                                                    <?= count(array_filter($anamneseJson, fn($k) => $k !== '_meta', ARRAY_FILTER_USE_KEY)) ?> campos gravados
                                                 </p>
-                                                <p class="text-[11px] text-emerald-600 mt-1">✓ Termo de serviço aceito</p>
+                                                <p class="text-[11px] text-emerald-600 mt-1">✓ Termo de serviço e LGPD aceitos</p>
                                             </div>
                                         </div>
 
-                                        <!-- Respostas Detalhadas em Seções Expansíveis -->
-                                        <div class="space-y-4 text-xs">
-                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
-                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
-                                                    <span>1. Identificação, Pagamento & Família</span>
-                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                                </summary>
-                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-700">
-                                                    <?php
-                                                    $sec1Fields = [
-                                                        'quem_preenche' => 'Quem está preenchendo',
-                                                        'email' => 'E-mail informado',
-                                                        'pagamento_pref' => 'Forma de pagamento preferida',
-                                                        'modalidade' => 'Modalidade',
-                                                        'nome' => 'Nome completo do(a) paciente',
-                                                        'sexo' => 'Sexo',
-                                                        'data_nasc' => 'Data de nascimento',
-                                                        'idade' => 'Idade',
-                                                        'cpf' => 'CPF',
-                                                        'mora_com' => 'Mora atualmente com',
-                                                        'dominancia' => 'Dominância lateral',
-                                                        'tem_filhos' => 'Possui filhos',
-                                                        'estado_civil' => 'Estado civil',
-                                                        'mae_nome' => 'Nome da Mãe',
-                                                        'mae_idade' => 'Idade da Mãe',
-                                                        'mae_profissao' => 'Profissão da Mãe',
-                                                        'pai_nome' => 'Nome do Pai',
-                                                        'pai_idade' => 'Idade do Pai',
-                                                        'pai_profissao' => 'Profissão do Pai',
-                                                        'pais_estado_civil' => 'Estado civil dos pais',
-                                                        'tem_irmaos' => 'Possui irmãos'
-                                                    ];
-                                                    foreach ($sec1Fields as $k => $lbl):
-                                                        if (!isset($anamneseJson[$k])) continue;
-                                                        $val = $anamneseJson[$k];
-                                                    ?>
-                                                        <div class="p-2.5 rounded-lg bg-slate-50/60 border border-slate-100">
-                                                            <strong class="text-slate-500 block text-[11px]"><?= $lbl ?></strong>
-                                                            <div class="mt-0.5 font-medium text-slate-800">
-                                                                <?php if (is_array($val)): ?>
-                                                                    <div class="flex flex-wrap gap-1 mt-1">
-                                                                        <?php foreach ($val as $item): ?>
-                                                                            <span class="bg-blue-50 text-royal-700 px-2 py-0.5 rounded text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                <?php else: ?>
-                                                                    <?= nl2br(htmlspecialchars((string)$val)) ?>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            </details>
-
-                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
-                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
-                                                    <span>2. Concepção, Gestação, Parto & Desenvolvimento</span>
-                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                                </summary>
-                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-slate-700">
-                                                    <?php
-                                                    $sec2Fields = [
-                                                        'gestacao_planejada' => 'Gestação foi planejada',
-                                                        'gestacao_ordem' => 'Posição na ordem das gestações',
-                                                        'gestacao_idade_mae' => 'Idade da mãe durante a gestação',
-                                                        'gestacao_doenca' => 'Doença durante a gestação',
-                                                        'gestacao_estresse' => 'Estresse materno na gestação/1º ano',
-                                                        'gestacao_medicacao' => 'Medicação na gestação',
-                                                        'gestacao_substancia' => 'Consumo de substâncias na gestação',
-                                                        'gestacao_prematuro' => 'Nasceu prematuro',
-                                                        'gestacao_semanas' => 'Duração da gestação em semanas',
-                                                        'gestacao_multipla' => 'Gestação múltipla',
-                                                        'tipo_parto' => 'Tipo de parto',
-                                                        'chorou_nascer' => 'Chorou logo ao nascer',
-                                                        'apgar' => 'APGAR ao nascer',
-                                                        'peso_nascer' => 'Peso ao nascer',
-                                                        'perimetro_cefalico' => 'Perímetro cefálico',
-                                                        'pais_consanguineos' => 'Pais consanguíneos',
-                                                        'intercorrencias_parto' => 'Intercorrências no parto/pós-parto',
-                                                        'bercario_mais_3dias' => 'Mais de 3 dias no berçário'
-                                                    ];
-                                                    foreach ($sec2Fields as $k => $lbl):
-                                                        if (!isset($anamneseJson[$k])) continue;
-                                                        $val = $anamneseJson[$k];
-                                                    ?>
-                                                        <div class="p-2.5 rounded-lg bg-slate-50/60 border border-slate-100">
-                                                            <strong class="text-slate-500 block text-[11px]"><?= $lbl ?></strong>
-                                                            <div class="mt-0.5 font-medium text-slate-800">
-                                                                <?php if (is_array($val)): ?>
-                                                                    <div class="flex flex-wrap gap-1 mt-1">
-                                                                        <?php foreach ($val as $item): ?>
-                                                                            <span class="bg-blue-50 text-royal-700 px-2 py-0.5 rounded text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                <?php else: ?>
-                                                                    <?= nl2br(htmlspecialchars((string)$val)) ?>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            </details>
-
-                                            <details open class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
-                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
-                                                    <span>3. Queixas, Motivo da Avaliação & Prejuízos Funcionais</span>
-                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                                </summary>
-                                                <div class="p-4 space-y-3 text-slate-700">
-                                                    <?php
-                                                    $sec3Fields = [
-                                                        'demanda' => 'Demanda / Encaminhamento',
-                                                        'hipotese' => 'Hipótese diagnóstica que motivou a busca',
-                                                        'primeiros_sinais_idade' => 'Idade em que notou os primeiros sinais',
-                                                        'tempo_dificuldades' => 'Início das dificuldades percebidas',
-                                                        'impacto_dia_a_dia' => 'Impacto das dificuldades no dia a dia',
-                                                        'dificuldades_infancia' => 'Dificuldades presentes na infância',
-                                                        'sinais_preocupacao' => 'Primeiros sinais/sintomas que despertaram preocupação',
-                                                        'comportamentos_brincadeira' => 'Comportamentos ao brincar',
-                                                        'intervencoes_atuais' => 'Intervenções ou acompanhamentos atuais',
-                                                        'comportamentos_atuais' => 'Checklist de comportamentos observados',
-                                                        'como_encontrou' => 'Como encontrou o contato'
-                                                    ];
-                                                    foreach ($sec3Fields as $k => $lbl):
-                                                        if (!isset($anamneseJson[$k])) continue;
-                                                        $val = $anamneseJson[$k];
-                                                    ?>
-                                                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                                                            <strong class="text-royal-800 block text-xs mb-1"><?= $lbl ?></strong>
-                                                            <div class="text-slate-800 text-xs">
-                                                                <?php if (is_array($val)): ?>
-                                                                    <div class="flex flex-wrap gap-1.5 mt-1">
-                                                                        <?php foreach ($val as $item): ?>
-                                                                            <span class="bg-blue-100/70 text-royal-800 font-medium px-2 py-0.5 rounded-md text-[11px]"><?= htmlspecialchars((string)$item) ?></span>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                <?php else: ?>
-                                                                    <p class="whitespace-pre-line leading-relaxed"><?= htmlspecialchars((string)$val) ?></p>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            </details>
-
-                                            <!-- Prejuízos Funcionais Cognitivos com Exemplos (Adulto & Infantil) -->
-                                            <details class="group bg-white rounded-xl border border-slate-200/80 overflow-hidden">
-                                                <summary class="flex items-center justify-between p-4 font-semibold text-slate-800 bg-slate-50 cursor-pointer select-none">
-                                                    <span>4. Domínios Cognitivos & Exemplos de Impacto (Atenção, Memória, Linguagem, Executivas, Motor, etc.)</span>
-                                                    <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-                                                </summary>
-                                                <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                    <?php
-                                                    foreach ($anamneseJson as $k => $val):
-                                                        if (in_array($k, array_merge(array_keys($sec1Fields), array_keys($sec2Fields), array_keys($sec3Fields), ['_meta']))) continue;
-                                                        if (empty($val)) continue;
-                                                    ?>
-                                                        <div class="p-2.5 rounded-lg bg-slate-50/70 border border-slate-100">
-                                                            <strong class="text-slate-500 block text-[11px]"><?= htmlspecialchars(strtoupper(str_replace('_', ' ', $k))) ?></strong>
-                                                            <div class="mt-1 font-medium text-slate-800">
-                                                                <?php if (is_array($val)): ?>
-                                                                    <div class="flex flex-wrap gap-1">
-                                                                        <?php foreach ($val as $item): ?>
-                                                                            <span class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded text-[10px]"><?= htmlspecialchars((string)$item) ?></span>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                <?php else: ?>
-                                                                    <p class="whitespace-pre-line"><?= htmlspecialchars((string)$val) ?></p>
-                                                                <?php endif; ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            </details>
-                                        </div>
+                                        <!-- Respostas Detalhadas Estruturadas pelo Schema Completo do Google Forms -->
+                                        <?= renderAnamnesisAnswersViewer($anamneseJson, $schemaName, $schema) ?>
 
                                     <?php else: ?>
                                         <!-- Estado Vazio / Aguardando Preenchimento -->
@@ -1056,7 +923,11 @@ $baseUrl = getBaseAppUrl();
                                                 </a>
                                                 <a href="<?= htmlspecialchars($nativeAnamneseUrl) ?>" target="_blank"
                                                    class="bg-royal-700 hover:bg-royal-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">
-                                                    Preencher Manualmente Agora ↗
+                                                    Preencher no Formulário Online ↗
+                                                </a>
+                                                <a href="<?= htmlspecialchars($googleAnamneseUrl) ?>" target="_blank"
+                                                   class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-xl transition">
+                                                    Preencher no Google Forms ↗
                                                 </a>
                                             </div>
                                         </div>

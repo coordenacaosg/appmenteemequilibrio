@@ -68,6 +68,18 @@ function formatRoleBadge(string $role): array {
     };
 }
 
+// Links oficiais dos Formulários Google Forms
+const GOOGLE_FORM_CADASTRO_URL = 'https://forms.gle/UjcZLoLEzDyCm4dq5';
+const GOOGLE_FORM_ANAMNESE_CRIANCA_URL = 'https://forms.gle/NZGiCRSuTpJDmJDr6';
+const GOOGLE_FORM_ANAMNESE_ADULTO_URL = 'https://forms.gle/ZehnrCVvNX9cNYCa6';
+
+function getOfficialGoogleFormUrl(string $type, string $model = 'adulto'): string {
+    if ($type === 'cadastro') {
+        return GOOGLE_FORM_CADASTRO_URL;
+    }
+    return ($model === 'infantil') ? GOOGLE_FORM_ANAMNESE_CRIANCA_URL : GOOGLE_FORM_ANAMNESE_ADULTO_URL;
+}
+
 /**
  * Gera link de cobrança inteligente cobrando APENAS os procedimentos pendentes da pré-consulta
  */

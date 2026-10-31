@@ -1,0 +1,3879 @@
+{
+  "cadastro": {
+    "title": "Cadastro de clientes",
+    "description": null,
+    "sections": [
+      {
+        "id": "sec_1",
+        "title": "Informações sobre a pessoa que será atendida",
+        "description": "A nota fiscal será emitida no CPF da pessoa que será atendida.",
+        "items": [
+          {
+            "id": "full_name",
+            "index": 2,
+            "type": "text",
+            "label": "Nome completo  do paciente",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "age",
+            "index": 3,
+            "type": "text",
+            "label": "Idade do paciente (apenas o número)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "phone_whatsapp",
+            "index": 4,
+            "type": "text",
+            "label": "Whatsapp do paciente ",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "cpf_nf",
+            "index": 5,
+            "type": "text",
+            "label": "CPF do paciente",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "birth_date",
+            "index": 6,
+            "type": "date",
+            "label": "Data de nascimento",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_7",
+        "title": "Informações sobre o responsável financeiro ",
+        "description": "",
+        "items": [
+          {
+            "id": "resp_tipo",
+            "index": 8,
+            "type": "radio",
+            "label": "Nome completo do responsável financeiro (caso não seja o próprio paciente marcar outro e escrever ao lado o nome completo)",
+            "help": "",
+            "required": true,
+            "options": [
+              "O próprio paciente"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "resp_cpf",
+            "index": 9,
+            "type": "text",
+            "label": "CPF do responsável financeiro",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "resp_vinculo",
+            "index": 10,
+            "type": "radio",
+            "label": "Vínculo com o paciente",
+            "help": "",
+            "required": false,
+            "options": [
+              "Mãe",
+              "Pai",
+              "Cônjuge"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "resp_email",
+            "index": 11,
+            "type": "text",
+            "label": "E-mail para envio da nota fiscal",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "resp_whatsapp",
+            "index": 12,
+            "type": "text",
+            "label": "Whatsapp do responsável financeiro",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "address_street",
+            "index": 13,
+            "type": "text",
+            "label": "Endereço (rua, nº, complemento)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "address_bairro",
+            "index": 14,
+            "type": "text",
+            "label": "Bairro",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "address_cidade_uf",
+            "index": 15,
+            "type": "text",
+            "label": "Cidade/estado",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "address_cep",
+            "index": 16,
+            "type": "text",
+            "label": "CEP",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_17",
+        "title": "Informações sobre o serviço que será prestado",
+        "description": "",
+        "items": [
+          {
+            "id": "tipo_atendimento",
+            "index": 18,
+            "type": "radio",
+            "label": "Tipo de atendimento",
+            "help": "",
+            "required": true,
+            "options": [
+              "Terapia cognitivo comportamental",
+              "Avaliação neuropsicológica",
+              "Grupo terapêutico ou para treino de habilidades",
+              "Supervisão Clínica"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "como_conheceu",
+            "index": 19,
+            "type": "radio",
+            "label": "Como conheceu a Psicóloga Gisele Silva Corrêa ou seus parceiros de equipe?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Anúncio do Google",
+              "Instagram",
+              "Indicação de pessoas conhecidas"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "indicacao_detalhe",
+            "index": 20,
+            "type": "text",
+            "label": "Se você recebeu a indicação de alguém para buscar a Psicóloga Gisele, por favor, informe o nome e whatsapp da pessoa para que ela possa receber uma mensagem de agradecimento e um bônus como gesto de agradecimento pela confiança no trabalho.",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      }
+    ]
+  },
+  "anamnese_adulto": {
+    "title": "ANAMNESE PRELIMINAR AVALIAÇÃO NEUROPSICOLÓGICA",
+    "description": null,
+    "sections": [
+      {
+        "id": "sec_1",
+        "title": "Informações Iniciais",
+        "description": "",
+        "items": [
+          {
+            "id": "info_1",
+            "type": "info",
+            "label": "INFORMAÇÕES GERAIS - LEIA COM ATENÇÃO ANTES DE PROSSEGUIR ",
+            "help": "O número e a duração das sessões serão determinados pela Neuropsicóloga responsável, conforme a necessidade de cada caso em particular, tendo em vista o motivo da avaliação e características individuais como fadigabilidade e capacidade de concentração. \nEm média, serão realizadas 1 a 2 sessões de anamnese com o paciente e/ou seu familiar, 10 a 14 sessões de aplicação dos instrumentos de avaliação e 1 sessão para entrega e esclarecimento sobre o laudo neuropsicológico. Cada sessão poderá ter a duração entre 40 e 60 minutos.\nSerão aceitos somente pagamentos por PIX, transferência, cartã de crédito (com parcelamento com juros) ou boleto. \nO valor a ser pago corresponde a todos os procedimentos necessários para a execução do serviço: sessões de aplicação de testes neuropsicológicos, entrevistas complementares com profissionais e/ou familiares (sempre que possível), tempo destinado à correção dos testes, elaboração do raciocínio clínico e redação do laudo.\nNos casos em que forem necessárias mais sessões do que o previsto, não será cobrado nenhum valor adicional. \nCaso haja a necessidade de interromper o processo de avaliação sem que seja possível sua conclusão, não haverá devolução do valor pago, mas será entregue um relatório com a descrição do procedimento e os resultados apurados até o momento da interrupção.\nA entrega do laudo será agendada de 3 a 4 semanas após a conclusão das sessões de avaliação. \nO principal objetivo da avaliação neuropsicológica é identificar e descrever o perfil cognitivo e psicológico do paciente. Embora sejam avaliados critérios diagnósticos para transtornos neuropsiquiátricos, não há obrigação ou garantia de constar no laudo neuropsicológico um diagnóstico nosológico (médico). A prerrogativa do diagnóstico é médica e, em muitos casos, há necessidade de dar continuidade à investigação com outros exames ou parecer de outros profissionais.",
+            "required": false
+          },
+          {
+            "id": "termo_aceite",
+            "index": 2,
+            "type": "radio",
+            "label": "LI E ESTOU DE ACORDO COM AS CONDIÇÕES DA PRESTAÇÃO DE SERVIÇO.",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "quem_preenche",
+            "index": 3,
+            "type": "checkbox",
+            "label": "Quem está preenchendo o questionário de anamnese? (especifique o nome e o vínculo em \"outros\", caso não seja o paciente. Exemplo: cônjuge - João R. da Silva)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Paciente"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "email",
+            "index": 4,
+            "type": "text",
+            "label": "E-mail:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pagamento_pref",
+            "index": 5,
+            "type": "radio",
+            "label": "Qual a forma de pagamento prefere:",
+            "help": "",
+            "required": true,
+            "options": [
+              "À vista",
+              "Parcelado em 3x (no dia da anamnese, 30 e 60 dias após)",
+              "Parcelamento no cartão de crédito (com juros)"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "modalidade",
+            "index": 6,
+            "type": "radio",
+            "label": "A avaliação será na modalidade:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Presencial",
+              "Online"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_7",
+        "title": "INFORMAÇÕES SOBRE A PESSOA QUE SERÁ ATENDIDA",
+        "description": "",
+        "items": [
+          {
+            "id": "nome",
+            "index": 8,
+            "type": "text",
+            "label": "Nome completo do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "sexo",
+            "index": 9,
+            "type": "radio",
+            "label": "Sexo:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Feminino",
+              "Masculino"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "data_nasc",
+            "index": 10,
+            "type": "text",
+            "label": "Data de nascimento do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "idade",
+            "index": 11,
+            "type": "text",
+            "label": "Idade do(a) paciente (apenas o número):",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "cpf",
+            "index": 12,
+            "type": "text",
+            "label": "CPF do(a) paciente que será avaliado:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mora_com",
+            "index": 13,
+            "type": "checkbox",
+            "label": "Pessoas com quem o(a) paciente mora atualmente (marque todas as opções que se apliquem):",
+            "help": "",
+            "required": true,
+            "options": [
+              "Mãe",
+              "Pai",
+              "Madrasta/Padrasto",
+              "Avó",
+              "Avô",
+              "Irmão(s)",
+              "Cônjuge",
+              "Filho(s)",
+              "Sozinho"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "dominancia",
+            "index": 14,
+            "type": "radio",
+            "label": "Qual é a dominância lateral do(a) paciente?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Destro",
+              "Canhoto",
+              "Ambidestro (faz as coisas com a mesma facilidade com o lado direito e esquerdo)",
+              "Desconheço"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "tem_filhos",
+            "index": 15,
+            "type": "radio",
+            "label": "O(A) paciente possui filho(s)?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "idade_filhos",
+            "index": 16,
+            "type": "text",
+            "label": "Idade dos filhos caso possua (Exemplo: 12, 24,...)",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "estado_civil",
+            "index": 17,
+            "type": "radio",
+            "label": "Estado civil do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Solteiro(a)",
+              "União estável",
+              "Casado(a)",
+              "Divorciado(a)",
+              "Viúvo(a)"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_18",
+        "title": "COMPOSIÇÃO FAMILIAR",
+        "description": "",
+        "items": [
+          {
+            "id": "mae_nome",
+            "index": 19,
+            "type": "text",
+            "label": "Nome completo da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mae_idade",
+            "index": 20,
+            "type": "text",
+            "label": "Idade da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mae_profissao",
+            "index": 21,
+            "type": "text",
+            "label": "Profissão/Ocupação da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_nome",
+            "index": 22,
+            "type": "text",
+            "label": "Nome completo do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_idade",
+            "index": 23,
+            "type": "text",
+            "label": "Idade do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_profissao",
+            "index": 24,
+            "type": "text",
+            "label": "Profissão/Ocupação do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "escolaridade_pais",
+            "index": 25,
+            "type": "grid",
+            "label": "Escolaridade dos Pais:",
+            "help": "",
+            "required": false,
+            "options": [
+              "Pai",
+              "Mãe"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Ens. Fundamental Completo",
+              "Ens. Fundamental Incompleto",
+              "Ens. Médio Completo",
+              "Ens. Médio Incompleto",
+              "Ens. Superior Completo",
+              "Ens. Superior Incompleto"
+            ],
+            "grid_cols": [
+              "Pai",
+              "Mãe"
+            ]
+          },
+          {
+            "id": "tem_irmaos",
+            "index": 26,
+            "type": "radio",
+            "label": "Possui irmãos?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "irmaos_dificuldades",
+            "index": 27,
+            "type": "radio",
+            "label": "Algum(a) dos(as) irmãos(ãs) tem dificuldades parecidas com as apresentadas pelo paciente? (caso possua)",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_28",
+        "title": "CONCEPÇÃO, GESTAÇÃO E PARTO",
+        "description": "Especialmente para investigação das hipóteses diagnósticas de TDAH, Autismo (TEA) e Dislexia e outros transtornos do neurodesenvolvimento, estas informações são muito importantes (procure ajuda de familiares que conheçam melhor sua história de desenvolvimento para o ajudar).",
+        "items": [
+          {
+            "id": "gestacao_idade_mae",
+            "index": 29,
+            "type": "text",
+            "label": "Idade da mãe durante a gestação:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_doenca",
+            "index": 30,
+            "type": "textarea",
+            "label": "A mãe teve alguma doença durante a gestação? Qual?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_estresse",
+            "index": 31,
+            "type": "radio",
+            "label": "Houve estresse materno durante a gestação ou o primeiro ano de vida da criança por conflitos no trabalho ou com familiares?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_medicacao",
+            "index": 32,
+            "type": "textarea",
+            "label": "A mãe fez uso de alguma medicação durante a gestação? Qual? Para quê?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_substancia",
+            "index": 33,
+            "type": "radio",
+            "label": "A mãe consumiu alguma substância abaixo durante a gestação:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Cigarro",
+              "Álcool",
+              "Maconha",
+              "Cocaína",
+              "Crack",
+              "LSD",
+              "Nenhuma substância acima",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "gestacao_prematuro",
+            "index": 34,
+            "type": "radio",
+            "label": "Nasceu prematuro?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Não",
+              "Sim"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_multipla",
+            "index": 35,
+            "type": "radio",
+            "label": "Gestação múltipla? (gêmeo, trigêmeo...)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Não",
+              "Sim"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "pais_consanguineos",
+            "index": 36,
+            "type": "radio",
+            "label": "Pais consanguíneos (parentes entre si)?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "intercorrencias_parto",
+            "index": 37,
+            "type": "radio",
+            "label": "Algumas das condições abaixo ocorreu durante o parto ou pós-parto imediato?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Icterícia (ficar amarelinho e ter que tomar banho de luz)",
+              "Hipóxia (falta de oxigênio)",
+              "Sofrimento Fetal (nascer sem líquido amniótico, parto muito prolongado, uso de fórceps)",
+              "Risco de Eclampsia (pressão materna muito alta, forçando um parto prematuro)",
+              "Convulsões",
+              "Malformação",
+              "Engolir água do parto",
+              "Nenhuma intercorrência acima",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "dificuldades_infancia",
+            "index": 38,
+            "type": "checkbox",
+            "label": "Quando criança (até os 11 anos), quais destas dificuldades estavam presentes no(a) paciente mesmo que não gerassem grande prejuízo:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Desatenção/Dificuldade de concentração em uma só tarefa",
+              "Hiperatividade/Agitação",
+              "Dificuldade para aprender",
+              "Agressividade contra as pessoas (bater, chutar, jogar coisas nas pessoas)",
+              "Autoagressão (bater a cabeça na parede, se arranhar, bater em si mesmo)",
+              "Dificuldade de fazer e manter amigos",
+              "Timidez excessiva",
+              "Não realizava as atividades que a professora passava na escola",
+              "Só aceitava fazer o que era do seu interesse e na hora que desejava, tendo dificuldade para seguir instruções e regras",
+              "Dificuldade de mudar o comportamento para se adequar a diferentes situações",
+              "Tiques motores ou verbais",
+              "Falar ou responder coisas sem sentido e sem ter relação com a situação",
+              "Problemas ou atraso na fala",
+              "Dificuldade para se alimentar (só comia determinadas coisas)",
+              "Não respondia verbalmente ou não olhava quando chamado(a) pelo nome",
+              "Desorganização",
+              "Medo excessivo de coisas do dia a dia",
+              "Carência afetiva ou dependência excessiva",
+              "Comportamentos repetitivos sem função aparente (manias)",
+              "Insistência em fazer sempre as mesmas coisas, do mesmo jeito ou na mesma sequência",
+              "Irritação ou incômodo com barulhos, texturas, cores ou outros tipos de estímulos",
+              "Parece não sentir nojo, dor, cheiros, calor ou frio",
+              "Comportamentos estranhos e incomuns",
+              "Nenhuma alternativa",
+              "Não sei informar"
+            ],
+            "has_other": true
+          }
+        ]
+      },
+      {
+        "id": "sec_39",
+        "title": "INFORMAÇÕES ESCOLARES",
+        "description": "",
+        "items": [
+          {
+            "id": "escolaridade",
+            "index": 40,
+            "type": "radio",
+            "label": "Escolaridade do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Não é alfabetizado",
+              "Ensino fundamental incompleto",
+              "Ensino fundamental",
+              "Ensino médio incompleto",
+              "Ensino médio",
+              "Ensino superior incompleto",
+              "Ensino superior",
+              "Pós-graduado"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "estuda_atualmente",
+            "index": 41,
+            "type": "radio",
+            "label": "Estuda atualmente?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "curso_atual",
+            "index": 42,
+            "type": "textarea",
+            "label": "Qual curso está estudando?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ficou_reprovado",
+            "index": 43,
+            "type": "radio",
+            "label": "Alguma vez ficou reprovado(a)?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_44",
+        "title": "HÁBITOS DE VIDA",
+        "description": "",
+        "items": [
+          {
+            "id": "substancias_psicoativas",
+            "index": 45,
+            "type": "checkbox",
+            "label": "O(A) paciente faz uso de substâncias psicoativas? (independente da frequência de uso)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Desconheço",
+              "Não utiliza",
+              "Tabaco",
+              "Cigarro",
+              "Bebida alcoólica",
+              "Maconha",
+              "Cocaína"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "exercicios_fisicos",
+            "index": 46,
+            "type": "radio",
+            "label": "O(A) paciente faz exercícios físicos regulares? (mínimo 30 minutos, 2x na semana)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "lazer_assiste",
+            "index": 47,
+            "type": "checkbox",
+            "label": "O que o(a) paciente assiste nas horas de lazer?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Vídeos no Youtube",
+              "Filmes",
+              "Séries",
+              "Documentários",
+              "Novelas",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "lazer_leitura",
+            "index": 48,
+            "type": "checkbox",
+            "label": "O que o(a) costuma ler? (mínimo 1x na semana)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Aplicativos como Whatsapp, Facebook, Instagram, etc",
+              "Sites de notícias ou pesquisa na internet",
+              "Email",
+              "Jornais",
+              "Revistas",
+              "Livros",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "habitos_escrita",
+            "index": 49,
+            "type": "checkbox",
+            "label": "Quais os hábitos de escrita do(a) paciente? (mínimo 1x no mês)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Anotações de compromissos em cadernos ou agenda",
+              "Anotações de tarefas a realizar em aplicativos no celular",
+              "Anotações de tarefas a realizar em cadernos ou agenda",
+              "Listas de compras em papel ou celular",
+              "Bilhetes em papel",
+              "Mensagens pelo Whatsapp (usando texto e não aúdio)",
+              "Emails",
+              "Resumos de textos lidos",
+              "Não costuma escrever",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "jogos_lazer",
+            "index": 50,
+            "type": "checkbox",
+            "label": "Que jogos o paciente costuma usar para passar o tempo?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Não gosta de nenhum jogo",
+              "Cartas",
+              "Jogos no celular ou computador",
+              "Passatempo de revistas (cruzadinhas, sudoku etc)",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "ambientes_sociais",
+            "index": 51,
+            "type": "checkbox",
+            "label": "Que ambiente com interação social o(a) paciente mais frequenta?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Casa de familiares",
+              "Casa de amigos",
+              "Trabalho",
+              "Igreja ou associação religiosa",
+              "Academia",
+              "Parques ou clubes de recreação",
+              "Quase não sai de casa",
+              "Desconheço"
+            ],
+            "has_other": true
+          }
+        ]
+      },
+      {
+        "id": "sec_52",
+        "title": "HISTÓRICO LABORAL",
+        "description": "",
+        "items": [
+          {
+            "id": "trabalha_atualmente",
+            "index": 53,
+            "type": "radio",
+            "label": "O(A) paciente trabalha atualmente?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim, é economicamente ativo",
+              "Não, está de licença médica",
+              "Não, está aposentado",
+              "Não"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "tipo_atividade_trabalho",
+            "index": 54,
+            "type": "textarea",
+            "label": "O(A) paciente trabalha em que tipo de atividade/profissão atualmente?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ultima_profissao_antes",
+            "index": 55,
+            "type": "text",
+            "label": "Qual foi a última profissão/ocupação (cargo) que o(a) paciente exerceu antes de ficar desempregado ou entrar de licença médica?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ultimas_3_experiencias",
+            "index": 56,
+            "type": "textarea",
+            "label": "Quais foram as 3 últimas experiências de trabalho que o(a) paciente teve? (cargos e funções que já desempenhou/ano)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_57",
+        "title": "HISTÓRICO MÉDICO",
+        "description": "",
+        "items": [
+          {
+            "id": "teve_covid19",
+            "index": 58,
+            "type": "radio",
+            "label": "Teve COVID-19?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "sindrome_genetica",
+            "index": 59,
+            "type": "textarea",
+            "label": "Possui alguma síndrome genética? (caso tenha, especifique)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "familiares_1grau_doencas",
+            "index": 60,
+            "type": "grid",
+            "label": "Possui familiares de 1º GRAU que possuam: ",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Esquizofrenia",
+              "Transtorno Bipolar",
+              "Depressão",
+              "Transtorno de Ansiedade Generalizada",
+              "Transtorno do Pânico",
+              "Transtorno Obssessivo-Compulsivo",
+              "TEA (Autismo)",
+              "TDAH",
+              "Epilepsia",
+              "Síndrome de Genética",
+              "Abuso de álcool/drogas",
+              "Deficiência intelectual",
+              "Tumor cerebral",
+              "Problemas cardiovasculares",
+              "AVC",
+              "Demência",
+              "Alzheimer",
+              "Parkinson",
+              "Hipertensão arterial",
+              "Diabetes"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ]
+          },
+          {
+            "id": "doencas_apresentadas",
+            "index": 61,
+            "type": "grid",
+            "label": "Quais dessas doenças o(a) paciente já apresentou ou apresenta?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Meningite",
+              "Traumatismo craniano",
+              "Desmaio",
+              "Crises de ausência",
+              "Epilepsia",
+              "AVC",
+              "Hipertensão arterial",
+              "Diabetes",
+              "Colesterol alto",
+              "Hipertireoidismo",
+              "Hipotireoidismo",
+              "Arritmia cardíaca",
+              "Depressão",
+              "Demência",
+              "Parkinson",
+              "Outro"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "crises_ausencia",
+            "index": 62,
+            "type": "grid",
+            "label": "Episódios de Alteração de Consciência (Triagem para Crises de Ausência)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Já teve desmaio com perda da consciência?",
+              "Já apresentou episódios breves de “olhar fixo” sem responder quando chamado?",
+              "Já interrompeu subitamente uma atividade e depois não se lembrava do ocorrido?",
+              "“Desliga” por alguns segundos durante conversas?",
+              "Já apresentou piscamento repetitivo ou movimentos automáticos da boca durante esses episódios?",
+              "Já teve quedas inexplicadas ou perda súbita de consciência?",
+              "Seus sintomas de atenção pioraram após uso de estimulantes?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "historia_cardiovascular",
+            "index": 63,
+            "type": "grid",
+            "label": "História Cardiovascular",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Há histórico familiar de morte súbita antes dos 50 anos?",
+              "Possui diagnóstico de cardiopatia?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "sono_privacao",
+            "index": 64,
+            "type": "grid",
+            "label": "Sono e Privação de Sono",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Dorme menos de 7 horas por noite regularmente?",
+              "Demora mais de 30 minutos para adormecer?",
+              "Acorda frequentemente durante a noite?",
+              "Acorda cansado(a) mesmo após uma noite de sono?",
+              "Sente sonolência excessiva durante o dia?",
+              "Usa telas até pouco antes de dormir?",
+              "Costuma cochilar durante o dia?",
+              "Movimenta-se excessivamente durante o sono?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "horarios_sono",
+            "index": 65,
+            "type": "textarea",
+            "label": "Em dias de semana, aproximadamente que horas costuma dormir? E aproximadamente que horas costuma acordar?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "sono_outras_caracteristicas",
+            "index": 66,
+            "type": "textarea",
+            "label": "Há alguma outra característica do sono que considere importante informar? ",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "apneia_sono",
+            "index": 67,
+            "type": "grid",
+            "label": "Apneia Obstrutiva do Sono",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Ronca alto com frequência?",
+              "Já observaram que você para de respirar durante o sono?",
+              "Acorda com sensação de sufocamento?",
+              "Apresenta dor de cabeça ao acordar?",
+              "Tem sudorese noturna frequente?",
+              "Respira predominantemente pela boca?",
+              "Já recebeu diagnóstico de apneia do sono?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "disfuncoes_tireoidianas",
+            "index": 68,
+            "type": "grid",
+            "label": "Disfunções Tireoidianas",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta cansaço persistente sem causa aparente?",
+              "Tem intolerância ao frio?",
+              "Apresenta constipação frequente?",
+              "Observou queda significativa de cabelo?",
+              "Pele mais seca ou espessada que o habitual?",
+              "Já recebeu diagnóstico de hipotireoidismo ou tireoidite de Hashimoto?",
+              "Possui histórico familiar de doença autoimune?",
+              "Realizou exame de TSH no último ano?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "sintomas_metabolicos",
+            "index": 69,
+            "type": "grid",
+            "label": "Sintomas Metabólicos / Diabetes",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta tremores, sudorese ou irritabilidade associados à fome?",
+              "Sente queda abrupta de energia ao longo do dia?",
+              "Tem sede excessiva ou aumento da frequência urinária?",
+              "Já recebeu diagnóstico de diabetes?",
+              "Já apresentou episódio de hipoglicemia?",
+              "O desempenho cognitivo varia conforme alimentação?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "anemia_ferro",
+            "index": 70,
+            "type": "grid",
+            "label": "Anemia / Deficiência de Ferro",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta fadiga frequente?",
+              "Já teve diagnóstico de anemia?",
+              "Observa palidez frequente?",
+              "Tem queda de cabelo associada a cansaço?",
+              "Possui dieta restritiva ou com baixo consumo de ferro?",
+              "(Se mulher) Apresenta fluxo menstrual intenso?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "historico_neurologico",
+            "index": 71,
+            "type": "grid",
+            "label": "Histórico Neurológico (Pós-Concussão)",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Já sofreu traumatismo craniano, mesmo que leve?",
+              "Participou de esportes de contato com impacto repetitivo?",
+              "Seus sintomas começaram após acidente ou queda?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "condicoes_inflamatorias",
+            "index": 72,
+            "type": "grid",
+            "label": "Condições Inflamatórias Sistêmicas",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta sintomas gastrointestinais crônicos?",
+              "Já foi diagnosticado com doença inflamatória intestinal?",
+              "Apresenta fadiga associada a sintomas físicos persistentes?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "cirurgias",
+            "index": 73,
+            "type": "textarea",
+            "label": "Sofreu alguma cirurgia? (caso tenha, especifique)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "historico_psiquiatrico_grave",
+            "index": 74,
+            "type": "checkbox",
+            "label": "Alguma vez já:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Foi hospitalizado por problemas emocionais/psiquiátricos",
+              "Se machucou, intencionalmente, para ajudar a diminuir o sofrimento/angústia",
+              "Tentou suicídio",
+              "Desconheço",
+              "Nenhuma alternativa acima"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "medicacoes_continuo",
+            "index": 75,
+            "type": "textarea",
+            "label": "Faz uso de medicação de uso contínuo? (caso faça, especifique o nome e a dose)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "acompanhamento_atual",
+            "index": 76,
+            "type": "radio",
+            "label": "Realiza algum tipo de acompanhamento/tratamento com:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Psiquiatra",
+              "Psicólogo",
+              "Não realiza",
+              "Neurologista"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "terapia_psicologo_passado",
+            "index": 77,
+            "type": "radio",
+            "label": "Já fez terapia com psicólogo?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "acompanhamento_psiquiatra_passado",
+            "index": 78,
+            "type": "radio",
+            "label": "Já fez acompanhamento com psiquiatra?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_79",
+        "title": "O QUE MOTIVOU A BUSCA PELA AVALIAÇÃO NEUROPSICOLÓGICA",
+        "description": "",
+        "items": [
+          {
+            "id": "como_encontrou",
+            "index": 80,
+            "type": "checkbox",
+            "label": "Como encontrou meu contato?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Indicação de algum profissional",
+              "Indicação de familiares e amigos",
+              "Através de busca no Google",
+              "Através do perfil no Instagram"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "indicacao_profissional_nome",
+            "index": 81,
+            "type": "text",
+            "label": "Em caso de indicação  do profissional, por favor, informe o nome  e a especialidade.",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "indicacao_amigo_nome",
+            "index": 82,
+            "type": "text",
+            "label": "Em caso de indicação de familiar ou amigo, por favor, informe o nome.",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "demanda_avaliacao",
+            "index": 83,
+            "type": "checkbox",
+            "label": "Demanda da avaliação:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Encaminhado por neurologista",
+              "Encaminhado por psiquiatra",
+              "Encaminhado por outro profissional de saúde (psicólogo, fonoaudiólogo, terapeuta ocupacional etc)",
+              "Demanda espontânea do paciente  e/ou família (não tem encaminhamento)"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "hipotese_diagnostica",
+            "index": 84,
+            "type": "checkbox",
+            "label": "Hipótese diagnóstica que motivou a busca da avaliação neuropsicológica:",
+            "help": "",
+            "required": true,
+            "options": [
+              "TDAH - Transtorno de Déficit de Atenção e Hiperatividade",
+              "TEA - Transtorno do Espectro Autista (Síndrome de Asperger)",
+              "Deficiência intelectual",
+              "Transtorno de aprendizagem (dislexia e/ou discalculia)",
+              "Avalição da cognição após trauma (AVC, traumatismo craniano etc)",
+              "Avaliação da cognição pré ou pós cirurgia",
+              "Comprometimento cognitivo (leve ou grave)",
+              "Superdotação ou altas habilidades",
+              "Desconheço"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "tempo_inicio_dificuldades",
+            "index": 85,
+            "type": "textarea",
+            "label": "Aproximadamente há quanto tempo as dificuldades atuais começaram a ser percebidas (mesmo que ainda não estivessem tão evidentes)? Faça um breve relato de quais foram as primeiras dificuldades percebidas.",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "impacto_dia_a_dia",
+            "index": 86,
+            "type": "textarea",
+            "label": "Descreva o impacto das dificuldades atuais no dia a dia:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_87",
+            "type": "info",
+            "label": "DADOS PARA O PAGAMENTO",
+            "help": "INTER - 077 \nMENTE EM EQUILIBRIO SERVICOS DE PSICOLOGIA LTDA \nCNPJ: 53.076.815/0001-10 (PIX) \nAgência: 0001 Conta: 32761183-9 título\n\nSerá enviado boleto conforme a opção escolhida de pagamento para o email informado no formulário de cadastro de clientes.\n \nO pagamento se inicia no dia agendado para a anamnese.\nEnviar comprovante para o whatsapp: 24 9964-2124",
+            "required": false
+          }
+        ]
+      }
+    ]
+  },
+  "anamnese_crianca": {
+    "title": "ANAMNESE PRELIMINAR AVALIAÇÃO NEUROPSICOLÓGICA",
+    "description": null,
+    "sections": [
+      {
+        "id": "sec_1",
+        "title": "Informações Iniciais",
+        "description": "",
+        "items": [
+          {
+            "id": "info_1",
+            "type": "info",
+            "label": "INFORMAÇÕES GERAIS - LEIA COM ATENÇÃO ANTES DE PROSSEGUIR ",
+            "help": "O número e a duração das sessões serão determinados pela Neuropsicóloga responsável, conforme a necessidade de cada caso em particular, tendo em vista o motivo da avaliação e características individuais como fadigabilidade e capacidade de concentração. \nEm média, serão realizadas 1 a 2 sessões de anamnese somente com os responsáveis, 10 a 14 sessões de aplicação dos instrumentos de avaliação e 1 sessão para entrega e esclarecimento sobre o laudo neuropsicológico. Cada sessão poderá ter a duração entre 30 e 60 minutos.\nSerão aceitos somente pagamentos por PIX, transferência ou boleto. \nO valor a ser pago corresponde a todos os procedimentos necessários para a execução do serviço: sessões de aplicação de testes neuropsicológicos, entrevistas complementares com profissionais e/ou escola (sempre que possível), tempo destinado à correção dos testes, elaboração do raciocínio clínico e redação do laudo.\nNos casos em que forem necessárias mais sessões do que o previsto, não será cobrado nenhum valor adicional. \nCaso haja a necessidade de interromper o processo de avaliação sem que seja possível sua conclusão, não haverá devolução do valor pago, mas será entregue um relatório com a descrição do procedimento e os resultados apurados até o momento da interrupção.\nA entrega do laudo será agendada de 3 a 4 semanas após a conclusão das sessões de avaliação. \nO principal objetivo da avaliação neuropsicológica é identificar e descrever o perfil cognitivo e psicológico do paciente. Embora sejam avaliados critérios diagnósticos para transtornos neuropsiquiátricos, não há obrigação ou garantia de constar no laudo neuropsicológico um diagnóstico nosológico (médico). A prerrogativa do diagnóstico é médica e, em muitos casos, há necessidade de dar continuidade à investigação com outros exames ou parecer de outros profissionais.",
+            "required": false
+          },
+          {
+            "id": "termo_aceite",
+            "index": 2,
+            "type": "radio",
+            "label": "LI E ESTOU DE ACORDO COM AS CONDIÇÕES DA PRESTAÇÃO DE SERVIÇO.",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "email",
+            "index": 3,
+            "type": "text",
+            "label": "E-mail:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pagamento_pref",
+            "index": 4,
+            "type": "radio",
+            "label": "Qual a forma de pagamento prefere:",
+            "help": "",
+            "required": true,
+            "options": [
+              "À vista",
+              "Parcelado em 3x (no dia da anamnese, 30 e 60 dias após)"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_5",
+        "title": "INFORMAÇÕES SOBRE A PESSOA QUE SERÁ ATENDIDA",
+        "description": "",
+        "items": [
+          {
+            "id": "nome",
+            "index": 6,
+            "type": "text",
+            "label": "Nome completo do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "sexo",
+            "index": 7,
+            "type": "radio",
+            "label": "Sexo:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Feminino",
+              "Masculino"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "data_nasc",
+            "index": 8,
+            "type": "text",
+            "label": "Data de nascimento do(a) paciente:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "idade",
+            "index": 9,
+            "type": "text",
+            "label": "Idade do(a) paciente (apenas o número):",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "cpf",
+            "index": 10,
+            "type": "text",
+            "label": "CPF do(a) paciente que será avaliado:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mora_com",
+            "index": 11,
+            "type": "checkbox",
+            "label": "Pessoas com quem o(a) paciente mora atualmente (marque todas as opções que se apliquem):",
+            "help": "",
+            "required": true,
+            "options": [
+              "Mãe",
+              "Pai",
+              "Madrasta/Padrasto",
+              "Avó",
+              "Avô",
+              "Irmão(s)",
+              "Guarda compartilhada"
+            ],
+            "has_other": true
+          }
+        ]
+      },
+      {
+        "id": "sec_12",
+        "title": "INFORMAÇÕES ESCOLARES",
+        "description": "",
+        "items": [
+          {
+            "id": "serie_escolaridade",
+            "index": 13,
+            "type": "textarea",
+            "label": "Em qual série o(a) paciente está estudando?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "escola",
+            "index": 14,
+            "type": "textarea",
+            "label": "Em qual escola o(a) paciente estuda? (informar caso não esteja estudando no momento)",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "telefone_escola",
+            "index": 15,
+            "type": "text",
+            "label": "Telefone de contato da escola:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "orientador_escola",
+            "index": 16,
+            "type": "text",
+            "label": "Nome do(a) Orientador(a) Educacional ou Pedagógico(a) que o(a) acompanha na escola:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "tipo_escola",
+            "index": 17,
+            "type": "radio",
+            "label": "Tipo de escola:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Particular",
+              "Pública"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "periodo_estudo",
+            "index": 18,
+            "type": "radio",
+            "label": "Em qual período estuda?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Manhã",
+              "Tarde",
+              "Noite"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ficou_reprovado",
+            "index": 19,
+            "type": "radio",
+            "label": "Alguma vez ficou reprovado(a)?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_20",
+        "title": "ROTINA ESCOLAR PRÉ E PÓS INÍCIO DA PANDEMIA DE COVID-19 (MARÇO/2020)",
+        "description": "",
+        "items": [
+          {
+            "id": "idade_inicio_pandemia",
+            "index": 21,
+            "type": "text",
+            "label": "Idade do(a) paciente NO INÍCIO DA PANDEMIA (março/2020):",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "serie_ano_pandemia",
+            "index": 22,
+            "type": "text",
+            "label": "Série que o(a) paciente estudava no PRIMEIRO ANO DA PANDEMIA (durante o ano inteiro de 2020):",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "desempenho_pre_pandemia",
+            "index": 23,
+            "type": "checkbox",
+            "label": "De forma geral, como era o desempenho escolar e o comportamento em sala de aula de seu(sua) filho(a) ANTES DA PANDEMIA? Marque todas as opções que se aplicarem:",
+            "help": "",
+            "required": false,
+            "options": [
+              "Conseguia aprender os conteúdos sem necessitar de suporte extra escolar (aulas particulares ou acompanhamento psicopedagógico).",
+              "Apresentava dificuldade para aprender os conteúdos ensinados.",
+              "Apresentava resistência ou recusa em realizar as atividades escolares.",
+              "Apresentava dificuldade de concentração.",
+              "Apresentava comportamento agitado.",
+              "Apresentava dificuldade de interagir com colegas de turma, ficando isolado ou se envolvendo em conflitos.",
+              "Falava pouco ou não falava em sala de aula.",
+              "Era participativo nas atividades em sala.",
+              "Apresentava comportamento colaborativo e respeitoso com a professora.",
+              "Apresentava comportamento opositivo em sala de aula, recusando-se a seguir as orientações e regras que recebia na escola.",
+              "Conseguia ter boa interação com os colegas da escola, participando de atividades em grupo e tomando iniciativa em brincadeiras.",
+              "Realizava as atividades dentro do tempo médio da turma, sem necessitar ficar fazendo as atividades após o término da aula ou concluí-las em casa.",
+              "Não conseguia terminar as atividades no mesmo ritmo da média da turma, precisando de tempo extra.",
+              "Necessitava realizar as avaliações em sala separada para ter melhor concentração.",
+              "Demonstrava prazer em ir para a escola para participar da aula."
+            ],
+            "has_other": false
+          },
+          {
+            "id": "pos_inicio_pandemia_2020",
+            "index": 24,
+            "type": "checkbox",
+            "label": "Em 2020, APÓS O INÍCIO DA PANDEMIA, seu(sua) filho(a):",
+            "help": "",
+            "required": false,
+            "options": [
+              "Ficou sem realizar nenhuma ou a maioria das atividades escolares, pois não houve a oferta de aula remota ou não foi possível acompanhar em casa.",
+              "Realizou estudo dirigido (impresso) elaborado pela escola do seu filho para ser feito em casa.",
+              "Assistiu aulas online sob supervisão integral de um adulto responsável a maioria das vezes.",
+              "Assistiu aulas online sem supervisão de um adulto responsável a maioria das vezes.",
+              "Necessitou receber ajuda de uma professora particular ou psicopedagoga para acompanhar o conteúdo das aulas remotas."
+            ],
+            "has_other": true
+          },
+          {
+            "id": "quem_acompanhava_atividades_pandemia",
+            "index": 25,
+            "type": "textarea",
+            "label": "Quem acompanhava seu(sua) filho(a) nas atividades escolares em casa APÓS A PANDEMIA?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_26",
+        "title": "COMPOSIÇÃO FAMILIAR",
+        "description": "",
+        "items": [
+          {
+            "id": "mae_nome",
+            "index": 27,
+            "type": "text",
+            "label": "Nome completo da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mae_idade",
+            "index": 28,
+            "type": "text",
+            "label": "Idade da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "mae_profissao",
+            "index": 29,
+            "type": "text",
+            "label": "Profissão/Ocupação da Mãe:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_nome",
+            "index": 30,
+            "type": "text",
+            "label": "Nome completo do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_idade",
+            "index": 31,
+            "type": "text",
+            "label": "Idade do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "pai_profissao",
+            "index": 32,
+            "type": "text",
+            "label": "Profissão/Ocupação do Pai:",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "escolaridade_pais",
+            "index": 33,
+            "type": "grid",
+            "label": "Escolaridade dos Pais:",
+            "help": "",
+            "required": false,
+            "options": [
+              "Pai",
+              "Mãe"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Ens. Fundamental Completo",
+              "Ens. Fundamental Incompleto",
+              "Ens. Médio Completo",
+              "Ens. Médio Incompleto",
+              "Ens. Superior Completo",
+              "Ens. Superior Incompleto"
+            ],
+            "grid_cols": [
+              "Pai",
+              "Mãe"
+            ]
+          },
+          {
+            "id": "pais_estado_civil",
+            "index": 34,
+            "type": "radio",
+            "label": "Estado civil dos Pais biológicos:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Casados",
+              "União estável",
+              "Separados/Divorciados"
+            ],
+            "has_other": true
+          }
+        ]
+      },
+      {
+        "id": "sec_35",
+        "title": "CONCEPÇÃO, GESTAÇÃO E PARTO",
+        "description": "",
+        "items": [
+          {
+            "id": "gestacao_planejada",
+            "index": 36,
+            "type": "radio",
+            "label": "A gestação foi planejada?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_idade_mae",
+            "index": 37,
+            "type": "text",
+            "label": "Idade da Mãe durante a gestação:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_ordem",
+            "index": 38,
+            "type": "radio",
+            "label": "Posição na ordem das gestações. O(A) paciente nasceu em sua:",
+            "help": "",
+            "required": true,
+            "options": [
+              "1ª Gestação",
+              "2ª Gestação",
+              "3ª Gestação",
+              "4ª Gestação"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "gestacao_tempo_relacionamento",
+            "index": 39,
+            "type": "text",
+            "label": "A gestação ocorreu após quanto tempo de relacionamento?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_mes_pre_natal",
+            "index": 40,
+            "type": "radio",
+            "label": "Acompanhamento pré-natal a partir de qual mês de gestação?",
+            "help": "",
+            "required": true,
+            "options": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "Não fez pré-natal"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_doenca",
+            "index": 41,
+            "type": "textarea",
+            "label": "Teve alguma doença durante a gestação? Qual?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_estresse",
+            "index": 42,
+            "type": "radio",
+            "label": "Houve estresse materno durante a gestação ou o primeiro ano de vida da criança por conflitos no trabalho ou com familiares?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_medicacao",
+            "index": 43,
+            "type": "textarea",
+            "label": "Fez uso de alguma medicação durante a gestação? Qual? Para quê?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_substancia",
+            "index": 44,
+            "type": "radio",
+            "label": "A mãe consumiu alguma substância abaixo durante a gestação:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Cigarro",
+              "Álcool",
+              "Maconha",
+              "Cocaína",
+              "Crack",
+              "LSD",
+              "Nenhuma substância acima"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "gestacao_semanas",
+            "index": 45,
+            "type": "text",
+            "label": "Qual foi a duração da gestação em semanas?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "gestacao_meses_mexer",
+            "index": 46,
+            "type": "text",
+            "label": "Com quantos meses sentiu a criança mexer?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "tipo_parto",
+            "index": 47,
+            "type": "radio",
+            "label": "Tipo de parto:",
+            "help": "",
+            "required": true,
+            "options": [
+              "Normal",
+              "Cesárea",
+              "Fórceps"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "chorou_nascer",
+            "index": 48,
+            "type": "radio",
+            "label": "Chorou logo ao nascer?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "pais_consanguineos",
+            "index": 49,
+            "type": "radio",
+            "label": "Pais consanguíneos (parentes entre si)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "intercorrencias_parto",
+            "index": 50,
+            "type": "radio",
+            "label": "Algumas das condições abaixo ocorreu durante o parto ou pós-parto imediato?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Icterícia (ficar amarelinho e ter que tomar banho de luz)",
+              "Hipóxia (falta de oxigênio)",
+              "Sofrimento Fetal (nascer sem líquido amniótico, parto muito prolongado, uso de fórceps)",
+              "Risco de Eclampsia (pressão materna muito alta, forçando um parto prematuro)",
+              "Convulsões",
+              "Malformação",
+              "Engolir água do parto"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "bercario_mais_3dias",
+            "index": 51,
+            "type": "textarea",
+            "label": "Precisou ficar mais de 3 dias no berçário? Por quê?",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "apgar",
+            "index": 52,
+            "type": "text",
+            "label": "APGAR ao nascer (olhar na caderneta da criança):",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "perimetro_cefalico",
+            "index": 53,
+            "type": "text",
+            "label": "Perímetro cefálico ao nascer (olhar na caderneta da criança):",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "peso_nascer",
+            "index": 54,
+            "type": "text",
+            "label": "Peso ao nascer (olhar na caderneta da criança):",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          }
+        ]
+      },
+      {
+        "id": "sec_55",
+        "title": "HISTÓRICO FAMILIAR  E TRIAGEM MÉDICA",
+        "description": "",
+        "items": [
+          {
+            "id": "familiares_dificuldades_neuro",
+            "index": 56,
+            "type": "checkbox",
+            "label": "Possui mais alguém na família que apresenta alguma destas dificuldades, mesmo que não gerassem grande prejuízo:",
+            "help": "",
+            "required": false,
+            "options": [
+              "Desatenção/Dificuldade de concentração em uma só tarefa",
+              "Hiperatividade/Agitação",
+              "Dificuldade para aprender",
+              "Agressividade contra as pessoas (bater, chutar, jogar coisas nas pessoas)",
+              "Autoagressão (bater a cabeça na parede, se arranhar, bater em si mesmo)",
+              "Dificuldade de fazer e manter amigos",
+              "Timidez excessiva",
+              "Não realiza as atividades que a professora passa na escola",
+              "Só aceitava fazer o que era do seu interesse e na hora que desejava, tendo dificuldade para seguir instruções e regras",
+              "Dificuldade de mudar o comportamento para se adequar a diferentes situações",
+              "Tiques motores ou verbais",
+              "Falar ou responder coisas sem sentido e sem ter relação com a situação",
+              "Problemas ou atraso na fala",
+              "Dificuldade para se alimentar (só comia determinadas coisas)",
+              "Não responde verbalmente ou não olha quando chamado pelo nome",
+              "Desorganização",
+              "Medo excessivo de coisas do dia a dia",
+              "Carência afetiva ou dependência excessiva",
+              "Comportamentos repetitivos sem função aparente (manias)",
+              "Insistência em fazer sempre as mesmas coisas, do mesmo jeito ou na mesma sequência",
+              "Irritação ou incômodo com barulhos, texturas, cores ou outros tipos de estímulos",
+              "Parece não sentir nojo, dor, cheiros, calor ou frio",
+              "Possui comportamentos estranhos e incomuns",
+              "Nenhum",
+              "Não sabe informar"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "teve_covid19",
+            "index": 57,
+            "type": "radio",
+            "label": "Teve COVID-19?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "familiares_1grau_doencas",
+            "index": 58,
+            "type": "grid",
+            "label": "Possui familiares de 1º GRAU que possuam: ",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Esquizofrenia",
+              "Transtorno Bipolar",
+              "Depressão",
+              "Transtorno de Ansiedade Generalizada",
+              "Transtorno do Pânico",
+              "Transtorno Obssessivo-Compulsivo",
+              "TEA (Autismo)",
+              "TDAH",
+              "Epilepsia",
+              "Síndrome de Genética",
+              "Abuso de álcool/drogas",
+              "Deficiência intelectual",
+              "Tumor cerebral",
+              "Problemas cardiovasculares",
+              "AVC",
+              "Demência",
+              "Alzheimer",
+              "Parkinson",
+              "Hipertensão arterial",
+              "Diabetes"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ]
+          },
+          {
+            "id": "doencas_apresentadas",
+            "index": 59,
+            "type": "grid",
+            "label": "Quais dessas doenças o(a) paciente já apresentou ou apresenta?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Meningite",
+              "Traumatismo craniano",
+              "Desmaio",
+              "Crises de ausência",
+              "Epilepsia",
+              "AVC",
+              "Hipertensão arterial",
+              "Diabetes",
+              "Colesterol alto",
+              "Hipertireoidismo",
+              "Hipotireoidismo",
+              "Arritmia cardíaca",
+              "Depressão"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "crises_ausencia",
+            "index": 60,
+            "type": "grid",
+            "label": "Episódios de Alteração de Consciência (Triagem para Crises de Ausência)",
+            "help": "",
+            "required": true,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Já teve desmaio com perda da consciência?",
+              "Já apresentou episódios breves de “olhar fixo” sem responder quando chamado?",
+              "Já interrompeu subitamente uma atividade e depois não se lembrava do ocorrido?",
+              "\"Desliga” por alguns segundos durante conversas? ",
+              "Já apresentou piscamento repetitivo ou movimentos automáticos da boca durante esses episódios?",
+              "Já teve quedas inexplicadas ou perda súbita de consciência?",
+              "Sintomas de atenção pioraram após uso de estimulantes?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "sono_privacao",
+            "index": 61,
+            "type": "grid",
+            "label": "Sono e privação de sono",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Dorme menos de 7 horas por noite regularmente?",
+              "Demora mais de 30 minutos para adormecer?",
+              "Acorda frequentemente durante a noite?",
+              "Acorda cansado(a) mesmo após uma noite de sono?",
+              "Sente sonolência excessiva durante o dia?",
+              "Usa telas até pouco antes de dormir?",
+              "Costuma cochilar durante o dia?",
+              "Movimenta-se excessivamente durante o sono?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "horarios_sono",
+            "index": 62,
+            "type": "textarea",
+            "label": "Em dias de semana, aproximadamente que horas costuma dormir? E aproximadamente que horas costuma acordar?",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "sono_outras_caracteristicas",
+            "index": 63,
+            "type": "textarea",
+            "label": "Há alguma outra característica do sono que considere importante informar? ",
+            "help": "",
+            "required": true,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "apneia_sono",
+            "index": 64,
+            "type": "grid",
+            "label": "Apneia Obstrutiva do Sono",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Ronca alto com frequência?",
+              "Para de respirar durante o sono?",
+              "Acorda com sensação de sufocamento?",
+              "Apresenta dor de cabeça ao acordar? ",
+              "Tem sudorese noturna frequente?",
+              "Respira predominantemente pela boca?",
+              "Já recebeu diagnóstico de apneia do sono?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "disfuncoes_tireoidianas",
+            "index": 65,
+            "type": "grid",
+            "label": "Disfunções Tireoidianas",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta cansaço persistente sem causa aparente?",
+              "Tem intolerância ao frio?",
+              "Apresenta constipação frequente?",
+              "Observou queda significativa de cabelo?",
+              "Pele mais seca ou espessada que o habitual?",
+              "Já recebeu diagnóstico de hipotireoidismo ou tireoidite de Hashimoto?",
+              "Realizou exame de TSH no último ano?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "sintomas_metabolicos",
+            "index": 66,
+            "type": "grid",
+            "label": "Sintomas Metabólicos / Diabetes",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta tremores, sudorese ou irritabilidade associados à fome?",
+              "Sente queda abrupta de energia ao longo do dia?",
+              "Tem sede excessiva ou aumento da frequência urinária?",
+              "Já recebeu diagnóstico de diabetes?",
+              "Já apresentou episódio de hipoglicemia?",
+              "O desempenho cognitivo varia conforme alimentação?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "anemia_ferro",
+            "index": 67,
+            "type": "grid",
+            "label": "Anemia / Deficiência de Ferro",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta fadiga frequente?",
+              "Já teve diagnóstico de anemia?",
+              "Observa palidez frequente? ",
+              "Tem queda de cabelo associada a cansaço?",
+              "Possui dieta restritiva ou com baixo consumo de ferro?",
+              "(Se mulher) Apresenta fluxo menstrual intenso?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "historico_neurologico",
+            "index": 68,
+            "type": "grid",
+            "label": "Histórico Neurológico (Pós-Concussão)",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Já sofreu traumatismo craniano, mesmo que leve?",
+              "Participou de esportes de contato com impacto repetitivo?",
+              "Seus sintomas começaram após acidente ou queda?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "condicoes_inflamatorias",
+            "index": 69,
+            "type": "grid",
+            "label": "Condições Inflamatórias Sistêmicas",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta sintomas gastrointestinais crônicos?",
+              "Já foi diagnosticado com doença inflamatória intestinal?",
+              "Apresenta fadiga associada a sintomas físicos persistentes?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          },
+          {
+            "id": "historia_cardiovascular",
+            "index": 70,
+            "type": "grid",
+            "label": "História Cardiovascular",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Há histórico familiar de morte súbita antes dos 50 anos?",
+              "Possui diagnóstico de cardiopatia?"
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sec_71",
+        "title": "PRIMEIROS SINAIS QUE DESPERTARAM SUA PREOCUPAÇÃO E QUEIXAS ATUAIS",
+        "description": "",
+        "items": [
+          {
+            "id": "primeiros_sinais_idade",
+            "index": 72,
+            "type": "radio",
+            "label": "Que idade tinha seu(sua) filho(a) quando notou, pela primeira vez, que alguma coisa não estava bem no seu desenvolvimento?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Antes de completar 2 anos",
+              "Entre 2 e 3 anos de idade",
+              "Entre 3 e 4 anos de idade",
+              "Entre 4 e 5 anos de idade",
+              "Entre 5 e 6 anos de idade",
+              "Entre 6 e 12 anos de idade",
+              "Acima de 12 anos de idade"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "sinais_preocupacao",
+            "index": 73,
+            "type": "checkbox",
+            "label": "Quais foram os primeiros sinais/sintomas que despertaram sua preocupação?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Desatenção/Dificuldade de concentração em uma só tarefa",
+              "Hiperatividade/Agitação",
+              "Dificuldade para aprender",
+              "Agressividade contra as pessoas (bater, chutar, jogar coisas nas pessoas)",
+              "Autoagressão (bater a cabeça na parede, se arranhar, bater em si mesmo)",
+              "Dificuldade de fazer e manter amigos",
+              "Timidez excessiva",
+              "Não realiza as atividades que a professora passa na escola",
+              "Só aceitava fazer o que era do seu interesse e na hora que desejava, tendo dificuldade para seguir instruções e regras",
+              "Dificuldade de mudar o comportamento para se adequar a diferentes situações",
+              "Tiques motores ou verbais",
+              "Falar ou responder coisas sem sentido e sem ter relação com a situação",
+              "Problemas ou atraso na fala",
+              "Dificuldade para se alimentar (só comia determinadas coisas)",
+              "Não responde verbalmente ou não olha quando chamado pelo nome",
+              "Desorganização",
+              "Medo excessivo de coisas do dia a dia",
+              "Carência afetiva ou dependência excessiva",
+              "Comportamentos repetitivos sem função aparente (manias)",
+              "Insistência em fazer sempre as mesmas coisas, do mesmo jeito ou na mesma sequência",
+              "Irritação ou incômodo com barulhos, texturas, cores ou outros tipos de estímulos",
+              "Parece não sentir nojo, dor, cheiros, calor ou frio",
+              "Possui comportamentos estranhos e incomuns",
+              "Muita facilidade para aprender.",
+              "Muita dificuldade para aprender nomes (cores, objetos, dias da semana...).",
+              "Dificuldade de memorizar conteúdo escolar através da leitura."
+            ],
+            "has_other": true
+          },
+          {
+            "id": "comportamentos_brincadeira",
+            "index": 74,
+            "type": "checkbox",
+            "label": "Marque os comportamentos que você observa em seu(sua) filho(a) quando ele(a) está brincando:",
+            "help": "",
+            "required": false,
+            "options": [
+              "Brinca bem sozinho e em grupo de amigos",
+              "Só brinca sozinho",
+              "Só brinca se tiver alguém junto direcionando a brincadeira",
+              "Não sabe ou não gosta de brincar",
+              "Prefere brincadeiras estruturadas (que tenham regras fixas como plano.",
+              "Prefere brincadeiras de faz de contas",
+              "Prefere brincar com objetos estranhos que não são utilizados como brinquedo normalmente.",
+              "Só brinca com um único brinquedo ou uma única brincadeira",
+              "Só brinca com jogos de montar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "intervencoes_atuais",
+            "index": 75,
+            "type": "checkbox",
+            "label": "Que tipo de intervenção/acompanhamento seu(sua) filho(a) realiza atualmente?",
+            "help": "",
+            "required": true,
+            "options": [
+              "Psicológico",
+              "Fonoaudiológico",
+              "Psicopedagógico",
+              "Reforço escolar",
+              "Terapia ocupacional",
+              "Terapia ABA",
+              "Terapia de Integração Sensorial de Ayres",
+              "Não realiza nenhum acompanhamento no momento"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "comportamentos_atuais",
+            "index": 76,
+            "type": "grid",
+            "label": "Quais destes comportamentos você observa atualmente em seu(sua) filho(a):",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ],
+            "has_other": false,
+            "grid_rows": [
+              "Apresenta sinais de hiperatividade",
+              "Apresenta sinais de impulsividade",
+              "Apresenta sinais de comportamento opositivo",
+              "Apresenta isolamento social",
+              "Pouco participativo",
+              "Obedece a sua autoridade",
+              "Apresenta boa organização do discurso",
+              "Apresenta comportamento de autoagressão",
+              "Apresenta agressividade quando é frustrado",
+              "Evita atividades que exijam muita concentração e/ou capacidade de abstração",
+              "Distrai-se muito facilmente",
+              "Dificuldade de compreensão de instruções",
+              "Consegue seguir instruções de no mínimo 3 passos até o fim",
+              "Faz brincadeira simbólica",
+              "Demanda alto nível de suporte para que consiga realizar as atividades propostas",
+              "Busca chamar sua atenção toda hora com comportamentos inapropriados",
+              "Demonstra compreender ironia e metáfora",
+              "Compreende quando é \"zoado\" (alguém está brincando com ironia ou sarcasmo com ele/a)",
+              "Tem dificuldade para compreender que as pessoas não sabem o que ele sabe sobre um assunto ou situação (falha da teoria da mente)",
+              "Apresenta rigidez no comportamento relacionado ao apego a rotinas dentro do atendimento",
+              "Resiste muito para aceitar novas atividades ou mudança de ordem das mesmas",
+              "Apresenta dificuldade de compreensão verbal",
+              "Expressa-se mais por gestos do que por palavras",
+              "Usa muitos gestos para complementar sua expressão verbal",
+              "Apresenta reação emocional muito desproporcional às situações geradoras de estresse/frustração nos seus atendimentos",
+              "Apresenta verbalizações de desvalia ou culpa quando erra ou não consegue fazer uma atividade",
+              "Apresenta verbalizações sobre preocupação com seu desempenho nas atividades",
+              "É muito detalhista em tudo o que faz, gerando prejuízo na execução das atividades (tempo excessivo ou perda do objetivo geral)",
+              "Aparenta dificuldade para enxergar de perto ou longe",
+              "Prefere atividades/brincadeiras estruturadas (com regras claras e definidas pelo profissional)",
+              "Prefere atividades/brincadeiras sem estrutura em que possa usar a imaginação",
+              "Apresenta maior desatenção em atividades que envolva leitura ou escrita",
+              "Apresenta comportamento repetitivo (estereotipias)",
+              "Apresenta interesse restrito",
+              "Apresenta tiques (vocais ou motores)",
+              "Apresenta dificuldade acentuada de coordenação motora",
+              "Necessita que repita muitas vezes as instruções para realizar as atividades",
+              "Levanta-se e anda pela sala comprometendo a realização de sua atividade",
+              "Dá respostas aleatórias às perguntas ou questões de atividades dirigidas sem parar para analisar antes de responder",
+              "Deixa cair objetos da mesa com frequência",
+              "Fica irritado ou reage mal quando é contrariado",
+              "Fica irritada ou reage mal quando muda a rotina do seu atendimento",
+              "Se desorganiza ou fica sem concentração quando muda a rotina no seu atendimento (ordem das atividades a serem feitas)",
+              "Permanece sentado durante o tempo necessário para concluir as atividades",
+              "Realiza brincadeira funcional (com uso adequado dos brinquedos e objetos)",
+              "Realiza brincadeira simbólica (faz de conta, imaginação)",
+              "Realiza troca de turno durante as conversas (fala e espera a resposta do profissional, alternando entre quem fala e quem escuta)",
+              "Realiza contato visual adequado",
+              "Consegue comunicar suas vontades e necessidades durante seu atendimento",
+              "Apresenta repetição de trechos de conversas ou de episódios de desenhos ou séries sem conexão com o que está sendo dito pelo profissional",
+              "Olha para onde o profissional está mostrando no momento em que é necessário para receber explicação sobre a atividade",
+              "Responde imediatamente ao ser chamado pelo nome sem necessitar de muita insistência do profissional",
+              "Em tarefas repetitivas ou que exijam concentração ou planejamento, necessita de pausas frequentes para conseguir realizar a tarefa por completo",
+              "Apresenta muita curiosidade",
+              "Apresenta muito interesse por aprender assuntos novos e diversos",
+              "Só demonstra interesse em aprender sobre assuntos de que gosta",
+              "Demonstra boa capacidade de resolução de problemas po raciocínio lógico-dedutivo (não verbal)",
+              "Demonstra boa capacidade de conceituação/definição das palavras e de categorização",
+              "Apresenta maior facilidade e interesse em atividades que exijam processamento visuoespacial",
+              "Apresenta boa capacidade de liderança.",
+              "Apresenta muita facilidade para se relacionar com os colegas.",
+              "Destaca-se pela sua habilidade motora.",
+              "Destaca-se pela sua capacidade de expressão oral.",
+              "Destaca-se pela sua criatividade.",
+              "Destaca-se pela sua determinação e energia quando se propõe a fazer algo."
+            ],
+            "grid_cols": [
+              "Sim",
+              "Não",
+              "Desconheço"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sec_77",
+        "title": "PREJUÍZOS FUNCIONAIS OBSERVADOS",
+        "description": "Para cada pergunta abaixo, responda \"sim\", \"não\" ou \"não sei informar\" conforme tiver observado ou não as dificuldades perguntadas. Em caso de impacto apresentado, descreva ao menos um exemplo de situação em que isto foi observado (de preferência mais recentemente).",
+        "items": [
+          {
+            "id": "info_78",
+            "type": "info",
+            "label": "Atenção e vigília",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "atencao_falhas",
+            "index": 79,
+            "type": "radio",
+            "label": "Apresenta falhas de atenção (esquecimentos, deixa em branco, “pula”, comete erros) na\nrealização de atividades do dia a dia ou no trabalho/estudo?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "atencao_falhas_exemplo",
+            "index": 80,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "atencao_distracao",
+            "index": 81,
+            "type": "radio",
+            "label": "Se distrai facilmente com estímulos irrelevantes ou com os próprios pensamentos?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "atencao_distracao_exemplo",
+            "index": 82,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "atencao_manutencao",
+            "index": 83,
+            "type": "radio",
+            "label": "Consegue manter a atenção enquanto faz tarefas mais longas ou chatas?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "atencao_manutencao_exemplo",
+            "index": 84,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "atencao_alternancia",
+            "index": 85,
+            "type": "radio",
+            "label": "Tem dificuldade em alternar o foco entre atividades diferentes? Ou seja, consegue fazer\ncoisas de forma alternada, ou precisa fazer uma coisa só por vez?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "atencao_alternancia_exemplo",
+            "index": 86,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "atencao_voando",
+            "index": 87,
+            "type": "radio",
+            "label": "Parece estar voando/sonhando\nacordado e não demonstra vigilância ativa ao que acontece no ambiente?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "atencao_voando_exemplo",
+            "index": 88,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_89",
+            "type": "info",
+            "label": "Memória",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "memoria_eventos_recentes",
+            "index": 90,
+            "type": "radio",
+            "label": "Lembra de eventos recentes (aniversários, passeios, acontecimentos familiares ou públicos)\ncom clareza ou depende de pistas/dicas? Se precisa, após as pistas, consegue recordar? E\nquando você conta a informação, fica claro que a pessoa reconhece o que houve ou tem um\ndiscurso vago?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_eventos_recentes_exemplo",
+            "index": 91,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "memoria_conhecimentos_gerais",
+            "index": 92,
+            "type": "radio",
+            "label": "Sabe sobre conhecimentos gerais para a idade (exemplos para crianças: estações do ano, dia\nda semana; exemplos para adultos: presidente do Brasil, capital do estado, continentes do\nplaneta)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_conhecimentos_gerais_exemplo",
+            "index": 93,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "memoria_curto_prazo",
+            "index": 94,
+            "type": "radio",
+            "label": "Tem facilidade para lembrar o que acabou de ser dito no curto prazo?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_curto_prazo_exemplo",
+            "index": 95,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "memoria_calculos_cabeca",
+            "index": 96,
+            "type": "radio",
+            "label": "Consegue fazer cálculos matemáticos de cabeça?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_calculos_cabeca_exemplo",
+            "index": 97,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "memoria_compreensao_textos",
+            "index": 98,
+            "type": "radio",
+            "label": "Consegue compreender explicações longas ou ler um texto/reportagem e compreender ao\nfinal?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_compreensao_textos_exemplo",
+            "index": 99,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "memoria_futuro_compromissos",
+            "index": 100,
+            "type": "radio",
+            "label": "Consegue lembrar do que precisa fazer no futuro sem ser lembrado, como compromissos e\noutras atividades?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "memoria_futuro_compromissos_exemplo",
+            "index": 101,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_102",
+            "type": "info",
+            "label": "Linguagem e comunicação",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "ling_deixou_falar",
+            "index": 103,
+            "type": "radio",
+            "label": "Teve algum período em que deixou de falar ou se\ncomunicar?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_deixou_falar_exemplo",
+            "index": 104,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_reducao_vocabulario",
+            "index": 105,
+            "type": "radio",
+            "label": "Houve recentemente uma redução súbita na complexidade ou variedade do vocabulário\nutilizado?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_reducao_vocabulario_exemplo",
+            "index": 106,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_compreende_ordens",
+            "index": 107,
+            "type": "radio",
+            "label": "Compreende ordens e explicações com facilidade considerando sua idade?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_compreende_ordens_exemplo",
+            "index": 108,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_troca_sons",
+            "index": 109,
+            "type": "radio",
+            "label": "Troca sons na fala?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_troca_sons_exemplo",
+            "index": 110,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_entonacao_incomum",
+            "index": 111,
+            "type": "radio",
+            "label": "A entonação da fala é incomum? Ou seja, é monótona demais ou diferente de alguma forma\n(um sotaque não esperado considerando as vivências da pessoa)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_entonacao_incomum_exemplo",
+            "index": 112,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_gagueira",
+            "index": 113,
+            "type": "radio",
+            "label": "Há sinais de gagueira?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_gagueira_exemplo",
+            "index": 114,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_acesso_palavras",
+            "index": 115,
+            "type": "radio",
+            "label": "Tem dificuldade para acessar as palavras na mente e/ou para nomear objetos comuns?",
+            "help": "",
+            "required": false,
+            "options": [
+              "SIm",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_acesso_palavras_exemplo",
+            "index": 116,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_palavras_estranhas",
+            "index": 117,
+            "type": "radio",
+            "label": "Usa palavras um pouco diferentes ou até consideradas estranhas para a idade ao conversar?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_palavras_estranhas_exemplo",
+            "index": 118,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_conversa_inicio_fim",
+            "index": 119,
+            "type": "radio",
+            "label": "Consegue manter uma conversa com começo, meio e fim?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_conversa_inicio_fim_exemplo",
+            "index": 120,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_turnos_fala",
+            "index": 121,
+            "type": "radio",
+            "label": "Sabe respeitar turnos de fala (a vez de cada um falar na conversa)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_turnos_fala_exemplo",
+            "index": 122,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_perde_fala",
+            "index": 123,
+            "type": "radio",
+            "label": "Perde-se no que está falando e não consegue retomar o assunto principal?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_perde_fala_exemplo",
+            "index": 124,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "ling_pistas_sociais",
+            "index": 125,
+            "type": "radio",
+            "label": "Tem facilidade em interpretar pistas sociais (olhar, tom de voz, expressões) e indiretas das\noutras pessoas?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "ling_pistas_sociais_exemplo",
+            "index": 126,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_127",
+            "type": "info",
+            "label": "Funções executivas",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "exec_planejar",
+            "index": 128,
+            "type": "radio",
+            "label": "Consegue planejar atividades simples (se arrumar para sair de casa ou antecipar passos para\nsair de casa, por exemplo) e complexas (uma festa de aniversário, uma brincadeira com a\nfamília, uma viagem) conforme esperado para a idade?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_planejar_exemplo",
+            "index": 129,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_impulso",
+            "index": 130,
+            "type": "radio",
+            "label": "Age por impulso e não consegue se controlar quando necessário?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_impulso_exemplo",
+            "index": 131,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_mudar_estrategia",
+            "index": 132,
+            "type": "radio",
+            "label": "É capaz de mudar de estratégia ou ideia quando a situação exige?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_mudar_estrategia_exemplo",
+            "index": 133,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_decisoes_ponderadas",
+            "index": 134,
+            "type": "radio",
+            "label": "Toma decisões ponderadas sem se precipitar?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_decisoes_ponderadas_exemplo",
+            "index": 135,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_corrige_erros",
+            "index": 136,
+            "type": "radio",
+            "label": "Reconhece e corrige erros durante tarefas?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_corrige_erros_exemplo",
+            "index": 137,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_gerencia_tempo",
+            "index": 138,
+            "type": "radio",
+            "label": "É capaz de gerenciar seu tempo sem ocorrer tantos atrasos recorrentes?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_gerencia_tempo_exemplo",
+            "index": 139,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "exec_esperar_vez",
+            "index": 140,
+            "type": "radio",
+            "label": "Consegue tolerar ficar esperando a sua vez?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "exec_esperar_vez_exemplo",
+            "index": 141,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_142",
+            "type": "info",
+            "label": "Visuopercepção e Visuoconstrução",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "visuo_formas_objetos",
+            "index": 143,
+            "type": "radio",
+            "label": "Consegue identificar formas e objetos visuais com precisão?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "visuo_formas_objetos_exemplo",
+            "index": 144,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "visuo_orientacao_espacial",
+            "index": 145,
+            "type": "radio",
+            "label": "Tem senso de direção e orientação espacial?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "visuo_orientacao_espacial_exemplo",
+            "index": 146,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "visuo_copiar_desenhos",
+            "index": 147,
+            "type": "radio",
+            "label": "Apresenta dificuldade em copiar desenhos simples ou complexos?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "visuo_copiar_desenhos_exemplo",
+            "index": 148,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "visuo_organiza_folha",
+            "index": 149,
+            "type": "radio",
+            "label": "Organiza bem os elementos em uma folha ao escrever ou desenhar?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "visuo_organiza_folha_exemplo",
+            "index": 150,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_151",
+            "type": "info",
+            "label": "Comportamento motor",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "motor_fina",
+            "index": 152,
+            "type": "radio",
+            "label": "Apresenta coordenação motora fina adequada para a idade (ex:  recortar com tesoura, comer com talheres, manusear objetos pequenos  escrever com letra\nruim/imprecisa)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "motor_fina_exemplo",
+            "index": 153,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "motor_grossa",
+            "index": 154,
+            "type": "radio",
+            "label": "A coordenação motora grossa está de acordo com o que se espera para a idade (ex:\ncorrer, pular)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "motor_grossa_exemplo",
+            "index": 155,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "motor_lateralidade",
+            "index": 156,
+            "type": "radio",
+            "label": "Há lateralidade definida (destro, canhoto)? Escreve com qual mão, de preferência?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Destro",
+              "Canhoto",
+              "Não há lateralidade definida"
+            ],
+            "has_other": true
+          },
+          {
+            "id": "motor_lateralidade_exemplo",
+            "index": 157,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "motor_marcha_equilibrio",
+            "index": 158,
+            "type": "radio",
+            "label": "Apresenta alterações na marcha ou equilíbrio?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "motor_marcha_equilibrio_exemplo",
+            "index": 159,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "motor_praxias",
+            "index": 160,
+            "type": "radio",
+            "label": "Demonstra dificuldades nas praxias (realizar gestos, usar objetos)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "motor_praxias_exemplo",
+            "index": 161,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "motor_regressao",
+            "index": 162,
+            "type": "radio",
+            "label": "Houve regressão ou redução súbita na coordenação motora ampla (andar, saltar) ou fina\n(segurar, escrever)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "motor_regressao_exemplo",
+            "index": 163,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_164",
+            "type": "info",
+            "label": "Leitura e Escrita",
+            "help": "",
+            "required": false
+          },
+          {
+            "id": "leit_dificuldade_inicio",
+            "index": 165,
+            "type": "radio",
+            "label": "Teve dificuldades para começar a ler e escrever?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_dificuldade_inicio_exemplo",
+            "index": 166,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_som_letras",
+            "index": 167,
+            "type": "radio",
+            "label": "Consegue entender que cada letra tem um som?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_som_letras_exemplo",
+            "index": 168,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_formar_silabas",
+            "index": 169,
+            "type": "radio",
+            "label": "Consegue formar sílabas?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_formar_silabas_exemplo",
+            "index": 170,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_diferenciar_sons",
+            "index": 171,
+            "type": "radio",
+            "label": "Consegue diferenciar os sons das letras?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_diferenciar_sons_exemplo",
+            "index": 172,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_fluente",
+            "index": 173,
+            "type": "radio",
+            "label": "Tem uma leitura fluente (sem pausas e falhas)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "SIm",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_fluente_exemplo",
+            "index": 174,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_entende_o_que_le",
+            "index": 175,
+            "type": "radio",
+            "label": "Entende bem o que lê (frases ou textos)?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_entende_o_que_le_exemplo",
+            "index": 176,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "leit_escrever_textos",
+            "index": 177,
+            "type": "radio",
+            "label": "Consegue escrever textos em complexidade adequada para a idade?",
+            "help": "",
+            "required": false,
+            "options": [
+              "Sim",
+              "Não",
+              "Não sei informar"
+            ],
+            "has_other": false
+          },
+          {
+            "id": "leit_escrever_textos_exemplo",
+            "index": 178,
+            "type": "textarea",
+            "label": "Exemplo de situação em que a dificuldade acima já foi observada e como isto prejudica o paciente:",
+            "help": "",
+            "required": false,
+            "options": [],
+            "has_other": false
+          },
+          {
+            "id": "info_179",
+            "type": "info",
+            "label": "Dados para pagamento",
+            "help": " INTER - 077 \nMENTE EM EQUILIBRIO SERVICOS DE PSICOLOGIA LTDA \nCNPJ: 53.076.815/0001-10 (PIX) \nAgência: 0001 Conta: 32761183-\n\nO pagamento se inicia no dia agendado para a anamnese.\nEnviar comprovante para o whatsapp: 24 99964-2123 ",
+            "required": false
+          }
+        ]
+      }
+    ]
+  }
+}
