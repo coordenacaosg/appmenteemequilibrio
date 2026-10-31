@@ -303,6 +303,7 @@ function renderGridItem(array $item, array $existingData, string $prefix = 'a'):
         }
         $html .= '</div>';
         $html .= '</div>';
+    }
     $html .= '</div>';
 
     $html .= '</div>';
